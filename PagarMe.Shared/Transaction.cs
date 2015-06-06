@@ -128,6 +128,16 @@ namespace PagarMe
             set { SetAttribute("nsu", value); }
         }
 
+        public DateTime? DateCreated {
+            get { return GetAttribute<DateTime?>("date_created"); }
+            set { SetAttribute("date_created", value); }
+        }
+
+        public DateTime? DateUpdated {
+            get { return GetAttribute<DateTime?>("date_updated"); }
+            set { SetAttribute("date_updated", value); }
+        }
+
         public int Amount
         {
             get { return GetAttribute<int>("amount"); }

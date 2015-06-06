@@ -57,5 +57,25 @@ namespace PagarMe.Tests
 
             Assert.IsTrue(transaction.Metadata["test"].ToString() == "uhuul");
         }
+
+        [Test]
+        public void DateCreatedShouldHaveValue()
+        {
+            var transaction = CreateTestTransaction();
+
+            transaction.Save();
+
+            Assert.IsTrue(transaction.DateCreated.HasValue);
+        }
+
+        [Test]
+        public void DateUpdatedShouldHaveValue()
+        {
+            var transaction = CreateTestTransaction();
+
+            transaction.Save();
+
+            Assert.IsTrue(transaction.DateUpdated.HasValue);
+        }
     }
 }
