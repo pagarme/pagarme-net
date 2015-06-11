@@ -136,7 +136,7 @@ namespace PagarMe
             var request = GetRequest();
             bool isError = false;
 
-            if (Body != null)
+            if (Body != null && (Method == "POST" || Method == "PUT"))
             {
                 var encoding = new UTF8Encoding(false);
 
