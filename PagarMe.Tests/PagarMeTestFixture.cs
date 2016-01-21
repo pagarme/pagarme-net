@@ -22,7 +22,8 @@ namespace PagarMe.Tests
                 Days = 30,
 				TrialDays = 0,
                 Amount = 1099,
-                Color = "#787878"
+                Color = "#787878",
+                PaymentMethods = new PaymentMethod[] { PaymentMethod.CreditCard }
             };
         }
 

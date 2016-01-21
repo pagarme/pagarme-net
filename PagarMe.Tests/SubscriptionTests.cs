@@ -21,11 +21,11 @@ namespace PagarMe.Tests
 
             var subscription = new Subscription
             {
-				CardHash = GetCardHash(),
-				Customer = new Customer
-				{
-					Email = "josedasilva@pagar.me"
-				},
+                CardHash = GetCardHash(),
+                Customer = new Customer
+                {
+                    Email = "josedasilva@pagar.me"
+                },
                 Plan = plan
             };
 
@@ -34,28 +34,28 @@ namespace PagarMe.Tests
             Assert.AreEqual(subscription.Status, SubscriptionStatus.Paid);
         }
 
-		[Test]
-		public void CancelSubscription()
-		{
-			var plan = CreateTestPlan();
-			plan.Save();
+        [Test]
+        public void CancelSubscription()
+        {
+            var plan = CreateTestPlan();
+            plan.Save();
 
-			Assert.AreNotEqual(plan.Id, 0);
+            Assert.AreNotEqual(plan.Id, 0);
 
             var subscription = new Subscription
-			{
-				CardHash = GetCardHash(),
-				Customer = new Customer
-				{
-					Email = "josedasilva@pagar.me"
-				},
-				Plan = plan
-			};
+            {
+                CardHash = GetCardHash(),
+                Customer = new Customer
+                {
+                    Email = "josedasilva@pagar.me"
+                },
+                Plan = plan
+            };
 
             subscription.Save();
-			subscription.Cancel();
+            subscription.Cancel();
 
-			Assert.AreEqual(subscription.Status, SubscriptionStatus.Canceled);
-		}
+            Assert.AreEqual(subscription.Status, SubscriptionStatus.Canceled);
+        }
     }
 }

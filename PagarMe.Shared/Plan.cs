@@ -24,6 +24,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Linq;
+using PagarMe.Base;
 
 namespace PagarMe
 {
@@ -57,8 +59,19 @@ namespace PagarMe
 
         public PaymentMethod[] PaymentMethods
         {
-            get { return GetAttribute<PaymentMethod[]>("payment_methods"); }
-            set { SetAttribute("payment_methods", value); }
+            get
+            {
+                return GetAttribute<String[]> ("payment_methods")
+                    .Select(s => EnumMagic.ConvertFromString(typeof(PaymentMethod), s))
+                    .Cast<PaymentMethod>()
+                    .ToArray();
+            }
+
+            set
+            {
+                var strings = value.Select(e => EnumMagic.ConvertToString(e)).ToArray();
+                SetAttribute("payment_methods", strings);
+            }
         }
 
         public string Color

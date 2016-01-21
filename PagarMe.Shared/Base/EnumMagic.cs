@@ -50,7 +50,9 @@ namespace PagarMe.Base
 
                 foreach (string name in names)
                 {
-                    #if !PCL
+                    #if NET40
+                    var member = type.GetFields().Single(x => x.Name == name);
+                    #elif !PCL
                     var member = type.GetTypeInfo().GetRuntimeFields().Single((x) => x.Name == name);
                     #else
                     var member = type.GetTypeInfo().GetDeclaredField(name);
@@ -58,7 +60,11 @@ namespace PagarMe.Base
                     var value = Enum.Parse(type, name);
                     var realName = name;
 
+                    #if NET40
+                    var attr = (EnumValueAttribute)member.GetCustomAttributes(typeof(EnumValueAttribute), false).FirstOrDefault();
+                    #else
                     var attr = member.GetCustomAttribute<EnumValueAttribute>();
+                    #endif
 
                     if (attr != null)
                         realName = attr.Value;

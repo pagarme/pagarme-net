@@ -141,7 +141,7 @@ namespace PagarMe
                 var encoding = new UTF8Encoding(false);
 
                 #if !PCL
-                request.Headers.Add(HttpRequestHeader.ContentLength, encoding.GetByteCount(Body).ToString());
+                request.ContentLength = encoding.GetByteCount(Body);
                 #else
                 request.Headers["Content-Length"] = encoding.GetByteCount(Body).ToString();
                 #endif

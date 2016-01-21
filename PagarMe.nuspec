@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 	<id>Pagar.me</id>
-	<version>2.2.1</version>
+	<version>2.2.4</version>
 	<authors>Joathan Lima</authors>
 	<owners>Pagar.me</owners>
 	<licenseUrl>http://www.opensource.org/licenses/MIT</licenseUrl>
@@ -20,5 +20,6 @@
 	</metadata>
 	<files>
 		<file src="PagarMe/bin/Release/PagarMe.dll"  target="lib/net45" />
+		<file src="PagarMe.Net40/bin/Release/PagarMe.dll"  target="lib/net40" />
 	</files>
 </package>

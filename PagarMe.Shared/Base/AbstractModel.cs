@@ -179,7 +179,11 @@ namespace PagarMe.Base
             {
                 value = ((AbstractModel)value).GetKeys(type);
             }
+            #if NET40
+            else if (value != null && value.GetType().IsEnum)
+            #else
             else if (value != null && value.GetType().GetTypeInfo().IsEnum)
+            #endif
             {
                 value = EnumMagic.ConvertToString((Enum)value);
             }
@@ -209,9 +213,17 @@ namespace PagarMe.Base
 
         protected object CastAttribute(Type type, object obj)
         {
+            #if NET40
+            var info = type;
+            #else
             var info = type.GetTypeInfo();
+            #endif
 
+            #if NET40
+            if (obj != null && info.IsInstanceOfType(obj))
+            #else
             if (obj != null && info.IsAssignableFrom(obj.GetType().GetTypeInfo()))
+            #endif
             {
                 return obj;
             }
@@ -238,13 +250,19 @@ namespace PagarMe.Base
             {
                 #if PCL
                 var valueType = type.GetTypeInfo().GenericTypeParameters;
+                #elif NET40
+                var valueType = type.GetGenericArguments();
                 #else
                 var valueType = type.GetTypeInfo().GetGenericArguments();
                 #endif
                 object[] args = obj == null ? null : new[] { CastAttribute(valueType[0], obj) };
                 return Activator.CreateInstance(type, args);
             }
+            #if NET40
+            else if (obj != null && info.IsSubclassOf(typeof(AbstractModel)) && (obj.GetType() == typeof(AbstractModel) || obj.GetType().IsSubclassOf(typeof(AbstractModel))))
+            #else
             else if (obj != null && info.IsSubclassOf(typeof(AbstractModel)) && (obj.GetType() == typeof(AbstractModel) || obj.GetType().GetTypeInfo().IsSubclassOf(typeof(AbstractModel))))
+            #endif
             {
                 var oldModel = (AbstractModel)obj;
                 var model = (AbstractModel)Activator.CreateInstance

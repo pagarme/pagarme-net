@@ -162,6 +162,12 @@ namespace PagarMe
             set { SetAttribute("card_holder_name", value); }
         }
 
+        public string CardCvv
+        {
+            get { return GetAttribute<string>("card_cvv"); }
+            set { SetAttribute("card_cvv", value); }
+        }
+
         public string CardLastDigits
         {
             get { return GetAttribute<string>("card_last_digits"); }
