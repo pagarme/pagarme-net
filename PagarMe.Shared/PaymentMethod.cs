@@ -33,7 +33,9 @@ namespace PagarMe
         [Base.EnumValue("credit_card")]
         CreditCard,
         [Base.EnumValue("boleto")]
-        Boleto
+        Boleto,
+	[Base.EnumValue("debit_card")]
+	DebitCard
     }
 }
 

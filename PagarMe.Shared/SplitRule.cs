@@ -61,9 +61,9 @@ namespace PagarMe
 			set { SetAttribute("liable", value); }
 		}
 
-		public float Percentage
+		public int Percentage
 		{
-			get { return GetAttribute<float>("percentage"); }
+			get { return GetAttribute<int>("percentage"); }
 			set { SetAttribute("percentage", value); }
 		}
 

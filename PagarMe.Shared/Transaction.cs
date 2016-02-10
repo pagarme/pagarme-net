@@ -122,9 +122,9 @@ namespace PagarMe
             set { SetAttribute("tid", value); }
         }
 
-        public string Nsu
+        public int Nsu
         {
-            get { return GetAttribute<string>("nsu"); }
+            get { return GetAttribute<int>("nsu"); }
             set { SetAttribute("nsu", value); }
         }
 
