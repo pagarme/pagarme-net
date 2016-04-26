@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PagarMe
 {
@@ -171,7 +172,7 @@ namespace PagarMe
             ExecuteSelfRequest(request);
         }
 
-        public async void CancelAsync()
+        public async Task CancelAsync()
         {
             var request = CreateRequest("POST", "/cancel");
 

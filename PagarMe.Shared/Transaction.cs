@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PagarMe
 {
@@ -264,7 +265,7 @@ namespace PagarMe
             ExecuteSelfRequest(request);
         }
 
-        public async void CaptureAsync(int? amount = null)
+        public async Task CaptureAsync(int? amount = null)
         {
             var request = CreateRequest("POST", "/capture");
 
@@ -281,7 +282,7 @@ namespace PagarMe
             ExecuteSelfRequest(request);
         }
 
-        public async void RefundAsync()
+        public async Task RefundAsync()
         {
             var request = CreateRequest("POST", "/refund");
 
