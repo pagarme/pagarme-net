@@ -42,6 +42,8 @@ namespace PagarMe
 		public Base.ModelCollection<Plan> Plans { get; private set; }
 		public Base.ModelCollection<Recipient> Recipients { get; private set; }
 		public Base.ModelCollection<BankAccount> BankAccounts { get; private set; }
+		public Base.AbstractModelCollection<SplitRule> SplitRules { get ; private set;}
+
 
         static PagarMeService()
         {
@@ -93,6 +95,8 @@ namespace PagarMe
 			Customers = new PagarMe.Base.ModelCollection<Customer>(this, "/customers");
 			Recipients = new PagarMe.Base.ModelCollection<Recipient>(this, "/recipients");
 			BankAccounts = new PagarMe.Base.ModelCollection<BankAccount>(this, "/bank_accounts");
+			SplitRules = new PagarMe.Base.AbstractModelCollection<SplitRule> (this, "/split_rules", "/transactions");
+            
         }
     }
 }

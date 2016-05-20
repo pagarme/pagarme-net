@@ -61,15 +61,15 @@ namespace PagarMe
 			set { SetAttribute("liable", value); }
 		}
 
-		public int Percentage
+		public int? Percentage
 		{
-			get { return GetAttribute<int>("percentage"); }
+			get { return GetAttribute<int?>("percentage"); }
 			set { SetAttribute("percentage", value); }
 		}
 
-		public int Amount
+		public int? Amount
 		{
-			get { return GetAttribute<int>("amount"); }
+			get { return GetAttribute<int?>("amount"); }
 			set { SetAttribute("amount", value); }
 		}
 
