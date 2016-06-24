@@ -45,6 +45,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)TransferInterval.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SplitRule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\AbstractModelCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Serialization\" />
