@@ -45,6 +45,7 @@ namespace PagarMe
             return query.Select((t) => Uri.EscapeUriString(t.Item1) + "=" + Uri.EscapeUriString(t.Item2)).Aggregate((c, n) => c + "&" + n);
         }
 
+
         private PagarMeService _service;
 
         public string Method { get; private set; }
@@ -52,6 +53,7 @@ namespace PagarMe
 
         public bool UseEncryptionKey { get; set; }
         public List<Tuple<string, string>> Query { get; private set; }
+
         public string Body { get; set; }
 
         internal PagarMeRequest(string method, string path)
@@ -179,6 +181,7 @@ namespace PagarMe
         private HttpWebRequest GetRequest()
         {
             HttpWebRequest request = WebRequest.CreateHttp(GetRequestUri());
+
 
             #if !PCL
             request.UserAgent = "pagarme-net/" + typeof(PagarMeRequest).Assembly.GetName().Version.ToString();

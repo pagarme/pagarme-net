@@ -315,6 +315,22 @@ namespace PagarMe
             await ExecuteSelfRequestAsync(request);
         }
 
+        public void Refund(BankAccount bank)
+        {
+            var request = CreateRequest("POST", "/refund");
+
+            if (bank.AgenciaDv != null)
+                request.Query.Add(new Tuple<string, string>("bank_account[agencia_dv]", bank.AgenciaDv));
+            request.Query.Add(new Tuple<string, string>("bank_account[bank_code]", bank.BankCode));
+            request.Query.Add(new Tuple<string, string>("bank_account[agencia]", bank.Agencia));   
+            request.Query.Add(new Tuple<string, string>("bank_account[conta]", bank.Conta));
+            request.Query.Add(new Tuple<string, string>("bank_account[conta_dv]", bank.ContaDv));
+            request.Query.Add(new Tuple<string, string>("bank_account[document_number]", bank.DocumentNumber));
+            request.Query.Add(new Tuple<string, string>("bank_account[legal_name]", bank.LegalName));
+
+             ExecuteSelfRequest(request);
+        }
+
         public void Refund(int? amount = null)
         {
             var request = CreateRequest("POST", "/refund");

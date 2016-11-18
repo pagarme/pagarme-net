@@ -48,6 +48,15 @@ namespace PagarMe.Tests
 			};
 		}
 
+        public static Transaction CreateTestBoletoTransaction()
+        {
+            return new Transaction
+            {
+                Amount = 1000,
+                PaymentMethod = PaymentMethod.Boleto
+            };
+        }
+
 		public static string GetCardHash ()
 		{
 			var creditcard = new CardHash ();

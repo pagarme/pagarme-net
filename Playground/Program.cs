@@ -35,9 +35,47 @@ namespace Playground
 	{
 		public static void Main (string[] args)
 		{
-			PagarMeService.DefaultApiKey = "ak_test_TSgC3nvXtdYnDoGKgNLIOfk3TFfkl9";
+			PagarMeService.DefaultApiKey = "ak_test_AAAfFBJDvGNMA6YMEoxRyIrK0PlhLI";
 			PagarMeService.DefaultEncryptionKey = "ek_test_UT6AN4fDN3BCUgo6kxUiOq6S20dbKc";
 
+            //BankAccount bank = PagarMeService.GetDefaultService().BankAccounts.Find("17308505");
+
+            Transaction transaction = PagarMeService.GetDefaultService().Transactions.Find("850944");
+
+            //Transaction transaction = new Transaction();
+            //transaction.Amount = 5000;
+            transaction.Status = TransactionStatus.Paid;
+
+            try
+            {
+                transaction.Save();
+
+            } catch(PagarMeException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.Read();
+            }
+
+            
+            
+            //transaction.Save();
+            
+      /*     
+            try
+            {
+                transaction.Refund(bank);
+
+            }catch(PagarMeException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.Read();
+            }
+
+
+            Console.Read();
+            */
+
+            /*
 			try {
 				BankAccount b = new BankAccount ();
 
@@ -103,7 +141,10 @@ namespace Playground
 				foreach (var erro in ex.Error.Errors)
 					Console.WriteLine (String.Format ("Error: {0}", erro.Message));
 			}
-		}
+		
+        */
+        }
+        
 	}
 }
 
