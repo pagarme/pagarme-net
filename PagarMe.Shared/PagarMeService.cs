@@ -39,9 +39,11 @@ namespace PagarMe
         public Base.ModelCollection<Subscription> Subscriptions { get; private set; }
         public Base.ModelCollection<Customer> Customers { get; private set; }
         public Base.ModelCollection<Transaction> Transactions { get; private set; }
+        public Base.ModelCollection<Transfer> Transfers { get; private set; }
         public Base.ModelCollection<Plan> Plans { get; private set; }
         public Base.ModelCollection<Recipient> Recipients { get; private set; }
         public Base.ModelCollection<BankAccount> BankAccounts { get; private set; }
+        public Base.ModelCollection<Payable> Payables { get; private set; }
 
         static PagarMeService()
         {
@@ -78,6 +80,7 @@ namespace PagarMe
             : this(apiKey, encryptionKey, DefaultApiEndpoint)
         {
 
+
         }
 
         public PagarMeService(string apiKey, string encryptionKey, string apiEndpoint)
@@ -93,6 +96,8 @@ namespace PagarMe
             Customers = new Base.ModelCollection<Customer>(this, "/customers");
             Recipients = new Base.ModelCollection<Recipient>(this, "/recipients");
             BankAccounts = new Base.ModelCollection<BankAccount>(this, "/bank_accounts");
+            Payables = new Base.ModelCollection<Payable>(this, "/payables");
+            Transfers = new Base.ModelCollection<Transfer>(this, "/transfers");
         }
     }
 }

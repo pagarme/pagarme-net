@@ -53,6 +53,7 @@ namespace PagarMe.Base
             ModelMap.Add("customer", typeof(Customer));
             ModelMap.Add("plan", typeof(Plan));
             ModelMap.Add("subscription", typeof(Subscription));
+            ModelMap.Add("payable", typeof(Payable));
         }
 
         private bool _loaded;
