@@ -41,10 +41,7 @@ namespace PagarMe.Base
         readonly string _endpointPrefix;
 
         internal ModelCollection(string endpoint)
-            : this(null, endpoint)
-        {
-
-        }
+            : this(null, endpoint){}
 
         internal ModelCollection(PagarMeService service, string endpoint, string endpointPrefix = "")
         {
@@ -55,7 +52,7 @@ namespace PagarMe.Base
             _endpoint = endpoint;
             _endpointPrefix = endpointPrefix;
         }
-
+        
         public TModel Find(int id, bool load = true)
         {
             return Find(id.ToString(), load);
@@ -71,6 +68,11 @@ namespace PagarMe.Base
                 model.SetId(id);
 
             return model;
+        }
+
+        public TModel Find(TModel searchParams)
+        {
+            return FindAll(searchParams).FirstOrDefault();
         }
 
         #if HAS_ASYNC
@@ -92,11 +94,6 @@ namespace PagarMe.Base
         }
         #endif
 
-        public TModel Find(TModel searchParams)
-        {
-            return FindAll(searchParams).FirstOrDefault();
-        }
-
         public async Task<TModel> FindAsync(TModel searchParams)
         {
             return (await FindAllAsync(searchParams)).FirstOrDefault();
@@ -106,6 +103,7 @@ namespace PagarMe.Base
         {
             return FinishFindQuery(BuildFindQuery(searchParams).Execute());
         }
+        
 
         public async Task<IEnumerable<TModel>> FindAllAsync(TModel searchParams)
         {
@@ -172,7 +170,6 @@ namespace PagarMe.Base
                 return (TModel)Activator.CreateInstance (typeof (TModel), new object[] { _service, _endpointPrefix });
             }
         }
-            
     }
 }
 

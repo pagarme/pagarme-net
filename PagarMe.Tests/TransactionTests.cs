@@ -112,6 +112,21 @@ namespace PagarMe.Tests
 		}
 
         [Test]
+        public void BoletoRefund()
+        {
+            var transaction = CreateTestBoletoTransaction();
+            transaction.Save();
+            transaction.Status = TransactionStatus.Paid;
+            transaction.Save();
+
+            BankAccount bank = CreateTestBankAccount();
+
+            transaction.Refund(bank);
+
+            Assert.IsTrue(transaction.Status == TransactionStatus.PendingRefund);
+        }
+
+        [Test]
         public void PartialRefund()
         {
             var transaction = CreateTestTransaction();
@@ -124,7 +139,6 @@ namespace PagarMe.Tests
             Assert.IsTrue(transaction.RefundedAmount == amountToBeRefunded);
         }
 
-
         [Test]
         public void SendMetadata()
         {
@@ -135,6 +149,19 @@ namespace PagarMe.Tests
             transaction.Save();
 
             Assert.IsTrue(transaction.Metadata["test"].ToString() == "uhuul");
+        }
+
+        [Test]
+        public void FindPayablesTest()
+        {
+            Transaction transaction = CreateTestBoletoTransaction();
+            transaction.Save();
+            transaction.Status = TransactionStatus.Paid;
+            transaction.Save();
+
+           Payable payable = transaction.Payables.FindAll(new Payable()).First();
+           Assert.IsTrue(payable.Amount.Equals(transaction.Amount));
+           Assert.IsTrue(payable.Status.Equals(PayableStatus.Paid));
         }
     }
 
@@ -172,7 +199,6 @@ namespace PagarMe.Tests
 
             var transactionEvent = transaction.Events.FindAll(new Event()).First();
             Assert.IsTrue(transactionEvent.DateCreated.HasValue);
-
             Assert.IsNotEmpty(transactionEvent.Model);
             Assert.IsNotEmpty(transactionEvent.ModelId);
             Assert.IsNotEmpty(transactionEvent.Id);
