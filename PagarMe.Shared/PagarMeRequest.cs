@@ -46,19 +46,16 @@ namespace PagarMe
         }
 
         private PagarMeService _service;
-
         public string Method { get; private set; }
         public string Path { get; private set; }
 
         public bool UseEncryptionKey { get; set; }
         public List<Tuple<string, string>> Query { get; private set; }
+
         public string Body { get; set; }
 
         internal PagarMeRequest(string method, string path)
-            : this(null, method, path)
-        {
-
-        }
+            : this(null, method, path) {}
 
         internal PagarMeRequest(PagarMeService service, string method, string path)
         {
@@ -179,6 +176,7 @@ namespace PagarMe
         private HttpWebRequest GetRequest()
         {
             HttpWebRequest request = WebRequest.CreateHttp(GetRequestUri());
+
 
             #if !PCL
             request.UserAgent = "pagarme-net/" + typeof(PagarMeRequest).Assembly.GetName().Version.ToString();
