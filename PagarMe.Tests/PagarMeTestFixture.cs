@@ -4,17 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace PagarMe.Tests
 {
-	public class PagarMeTestFixture
-	{
+    public class PagarMeTestFixture
+    {
 
         static PagarMeTestFixture ()
         {
             PagarMeService.DefaultApiKey = "ak_test_RBORKsHflgcrO7gISMyhatMx8UyiJY";
             PagarMeService.DefaultEncryptionKey = "ek_test_Ajej5CakM8QXGnA2lWX3AarwLWqspL";
-
         }
 
         public static Recipient CreateRecipientWithAnotherBankAccount()
@@ -121,6 +123,16 @@ namespace PagarMe.Tests
                 PaymentDate = DateTime.Now.AddDays(5),
                 Build = true,
                 RequestedAmount = 900000
+            };
+        }
+
+        public static Transaction CreateTestBoletoTransactionWithPostbackUrl()
+        {
+            return new Transaction
+            {
+                Amount = 1099,
+                PaymentMethod = PaymentMethod.Boleto,
+                PostbackUrl = "https://requestb.in/api/v1/bins"
             };
         }
 

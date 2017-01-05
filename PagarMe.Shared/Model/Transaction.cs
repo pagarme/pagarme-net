@@ -34,6 +34,7 @@ namespace PagarMe
         private Base.ModelCollection<Event> _events;
         private Base.ModelCollection<Payable> _payables;
         private Base.ModelCollection<AntifraudAnalysis> _antifraud;
+        private Base.ModelCollection<Postback> _postbacks;
 
         protected override string Endpoint { get { return "/transactions"; } }
 
@@ -313,6 +314,20 @@ namespace PagarMe
                 }
 
                 return _antifraud ?? (_antifraud = new Base.ModelCollection<AntifraudAnalysis>(Service, "/antifraud_analyses ", Endpoint + "/" + Id));
+            }
+        }
+
+        public Base.ModelCollection<Postback> Postbacks
+        {
+            get
+            { 
+                if (Id == null)
+                {
+                throw new InvalidOperationException("Transaction must have an Id in order to fetch events");
+            }
+
+                return _postbacks ?? (_postbacks = new Base.ModelCollection<Postback>(Service, "/postbacks", Endpoint + "/" + Id));
+
             }
         }
 

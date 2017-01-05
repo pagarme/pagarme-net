@@ -20,6 +20,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Enumeration\PayableStatus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumeration\PayableType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumeration\PaymentMethod.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumeration\PostbackDeliveryStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumeration\PostbackModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumeration\PostbackStatus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumeration\SubscriptionStatus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumeration\TimeFrame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumeration\TransactionStatus.cs" />
@@ -39,6 +42,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Payable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Phone.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Plan.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Postback.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\PostbackDelivery.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Recipient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\SplitRule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Subscription.cs" />
