@@ -36,9 +36,9 @@ namespace PagarMe.Base
 {
     public class ModelCollection<TModel> where TModel : Model
     {
-        private PagarMeService _service;
-        private string _endpoint;
-        readonly string _endpointPrefix;
+        protected PagarMeService _service;
+        protected string _endpoint;
+        protected readonly string _endpointPrefix;
 
         internal ModelCollection(string endpoint)
             : this(null, endpoint){}
@@ -103,7 +103,7 @@ namespace PagarMe.Base
         {
             return FinishFindQuery(BuildFindQuery(searchParams).Execute());
         }
-        
+
         public TModel FindAllObject(TModel searchParams)
         {
             return FinishFindQueryObject(BuildFindQuery(searchParams).Execute());
@@ -116,10 +116,9 @@ namespace PagarMe.Base
 
         public PagarMeRequest BuildFindQuery(TModel searchParameters)
         {
-            var request = new PagarMeRequest(_service, "GET", _endpointPrefix + _endpoint);
-			var keys = searchParameters.ToDictionary(SerializationType.Plain);
-            request.Query = searchParameters.BuildQueryForKeys(null, keys);
-
+            var request = new PagarMeRequest (_service, "GET", _endpointPrefix + _endpoint);
+            var keys = searchParameters.ToDictionary (SerializationType.Plain);
+            request.Query = searchParameters.BuildQueryForKeys (null, keys);
             return request;
         }
 
