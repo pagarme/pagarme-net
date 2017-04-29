@@ -26,6 +26,7 @@
 using PagarMe.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PagarMe
 {
@@ -339,23 +340,49 @@ namespace PagarMe
             Metadata = new Base.AbstractModel(Service);
         }
 
-        public void Capture(int? amount = null)
+        public void Capture(int? amount = null, SplitRule[] splitRules = null)
         {
             var request = CreateRequest("POST", "/capture");
-
             if (amount.HasValue)
+            {
                 request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
-
+            }
+            if (splitRules != null)
+            {
+                var splitRulesTuples = splitRules.Select((splitRule, index) => 
+                {
+                    return BuildQueryForKeys("split_rules[" + index + "]", splitRule.ToDictionary()); ;
+                })
+                .Aggregate(new List<Tuple<string, string>>(), (Acc, list) => 
+                {
+                    Acc.AddRange(list);
+                    return Acc;
+                });
+                request.Query.AddRange(splitRulesTuples);
+            }
             ExecuteSelfRequest(request);
         }
 
-        public async void CaptureAsync(int? amount = null)
+        public async void CaptureAsync(int? amount = null, SplitRule[] splitRules = null)
         {
             var request = CreateRequest("POST", "/capture");
-
             if (amount.HasValue)
+            {
                 request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
-
+            }
+            if (splitRules != null)
+            {
+                var splitRulesTuples = splitRules.Select((splitRule, index) => 
+                {
+                    return BuildQueryForKeys("split_rules[" + index + "]", splitRule.ToDictionary()); ;
+                })
+                .Aggregate(new List<Tuple<string, string>>(), (Acc, list) => 
+                {
+                    Acc.AddRange(list);
+                    return Acc;
+                });
+                request.Query.AddRange(splitRulesTuples);
+            }
             await ExecuteSelfRequestAsync(request);
         }
 
@@ -378,7 +405,7 @@ namespace PagarMe
             ExecuteSelfRequest(request);
         }
 
-		public async void RefundAsync(int? amount = null)
+        public async void RefundAsync(int? amount = null)
         {
             var request = CreateRequest("POST", "/refund");
 
@@ -395,6 +422,7 @@ namespace PagarMe
             CoerceAttribute("customer", typeof(Customer));
             CoerceAttribute("address", typeof(Address));
             CoerceAttribute("phone", typeof(Phone));
+            CoerceAttribute("split_rules", typeof(SplitRule[]));
 
             var subscriptionId = GetAttribute<object>("subscription_id");
 

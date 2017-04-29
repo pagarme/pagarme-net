@@ -82,6 +82,14 @@ namespace PagarMe
 			: base(service)
 		{
 		}
-	}
+
+        protected override void CoerceTypes()
+        {
+            base.CoerceTypes();
+            var recipientId = GetAttribute<object>("recipient_id");
+            if(recipientId != null)
+                SetAttribute("recipient", Service.Recipients.Find(recipientId.ToString()), false);
+        }
+    }
 }
 

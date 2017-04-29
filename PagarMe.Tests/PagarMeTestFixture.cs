@@ -120,7 +120,7 @@ namespace PagarMe.Tests
             return new BulkAnticipation()
             {
                 Timeframe = TimeFrame.Start,
-                PaymentDate = DateTime.Now.AddDays(5),
+				PaymentDate = DateTime.Now.AddMonths(1),
                 Build = true,
                 RequestedAmount = 900000
             };
@@ -146,6 +146,13 @@ namespace PagarMe.Tests
 				CardHash = GetCardHash()
 			};
 		}
+
+        public static Transaction CreateAuthorizedTestTransaction()
+        {
+            var transaction = CreateTestTransaction();
+            transaction.ShouldCapture = false;
+            return transaction;
+        }
 
         public static Transaction CreateTestBoletoTransaction()
         {
@@ -188,7 +195,6 @@ namespace PagarMe.Tests
             };
         }
 
-
         public static SplitRule[] CreateSplitRule(Recipient recipient)
         {
             List<SplitRule> splits = new List<SplitRule>();
@@ -219,7 +225,7 @@ namespace PagarMe.Tests
 
 			creditcard.CardHolderName = "Jose da Silva";
 			creditcard.CardNumber = "5433229077370451";
-			creditcard.CardExpirationDate = "1038";
+			creditcard.CardExpirationDate = DateTime.Now.AddMonths(1).ToString("MMyy");
 			creditcard.CardCvv = "018";
 
 			return creditcard.Generate();
