@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 #if HAS_ASYNC
 using System.Threading.Tasks;

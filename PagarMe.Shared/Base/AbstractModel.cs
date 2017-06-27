@@ -300,7 +300,7 @@ namespace PagarMe.Base
             }
             else if (info.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
-                #if PCL
+                #if (PCL || NETCOREAPP1_1 || NETSTANDARD1_6)
                 var valueType = type.GetTypeInfo().GenericTypeParameters;
                 #elif NET40
                 var valueType = type.GetGenericArguments();
