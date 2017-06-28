@@ -29,7 +29,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Serialization {
     public class PagarMeContractResolver : DefaultContractResolver {
-#if (!NETSTANDARD1_6 && !NETCOREAPP1_1)
+#if (!NETSTANDARD && !NETCOREAPP1_1)
         public PagarMeContractResolver()
             : base(false)
         {

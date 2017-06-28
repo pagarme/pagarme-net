@@ -52,7 +52,7 @@ namespace PagarMe.Base
                 {
                     #if NET40
                     var member = type.GetFields().Single(x => x.Name == name);
-                    #elif (!PCL && !NETSTANDARD1_6 && !NETCOREAPP1_1)
+                    #elif (!PCL && !NETSTANDARD && !NETCOREAPP1_1)
                     var member = type.GetTypeInfo().GetRuntimeFields().Single((x) => x.Name == name);
                     #else
                     var member = type.GetTypeInfo().GetDeclaredField(name);

@@ -8,6 +8,10 @@
     <DefineConstants>TRACE;RELEASE;NETSTANDARD1_4;NETSTANDARD1_6</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD1_4;HAS_ASYNC;NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+
   <Import Project="..\PagarMe.Shared\PagarMe.Shared.projitems" Label="Shared" />
 
   <ItemGroup>

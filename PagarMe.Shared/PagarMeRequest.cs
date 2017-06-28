@@ -31,8 +31,6 @@ using System.Threading;
 using System.Reflection;
 using System.Net;
 using System.Linq;
-using System.Threading.Tasks;
-
 #if HAS_ASYNC
 using System.Threading.Tasks;
 #endif
@@ -73,7 +71,7 @@ namespace PagarMe
             if(method=="GET") Body = null;
         }
 
-#if (!PCL && !NETSTANDARD1_6 && !NETCOREAPP1_1)
+#if (!PCL && !NETSTANDARD && !NETCOREAPP1_1)
         public PagarMeResponse Execute()
         {
             HttpWebResponse response;
@@ -140,7 +138,7 @@ namespace PagarMe
             {
                 var encoding = new UTF8Encoding(false);
 
-                #if (!PCL && !NETSTANDARD1_6 && !NETCOREAPP1_1)
+                #if (!PCL && !NETSTANDARD && !NETCOREAPP1_1)
                 request.ContentLength = encoding.GetByteCount(Body);
                 #else
                 request.Headers["Content-Length"] = encoding.GetByteCount(Body).ToString();
@@ -180,7 +178,7 @@ namespace PagarMe
         {
             HttpWebRequest request = WebRequest.CreateHttp(GetRequestUri());
 
-            #if (!PCL && ! NETSTANDARD1_6 &&!NETCOREAPP1_1)
+            #if (!PCL && ! NETSTANDARD && !NETCOREAPP1_1)
             request.UserAgent = "pagarme-net/" + typeof(PagarMeRequest).Assembly.GetName().Version.ToString();
             #else
             request.Headers["User-Agent"] = "pagarme-net/" + typeof(PagarMeRequest).GetTypeInfo().Assembly.GetName().Version.ToString();
