@@ -230,6 +230,11 @@ namespace PagarMe
             set { SetAttribute("boleto_url", value); }
         }
 
+        public string BoletoInstructions
+        {
+            set { SetAttribute("boleto_instructions", value); }
+        }
+
         public DateTime? BoletoExpirationDate
         {
             get { return GetAttribute<DateTime?>("boleto_expiration_date"); }
