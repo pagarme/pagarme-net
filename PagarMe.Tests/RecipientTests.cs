@@ -8,29 +8,29 @@ using PagarMe.Model;
 
 namespace PagarMe.Tests
 {
-	[TestFixture]
-	public class RecipientTests : PagarMeTestFixture
-	{
-		[Test]
-		public void CreateWithOldFields ()
-		{
-			var bank = CreateTestBankAccount ();
+    [TestFixture]
+    public class RecipientTests : PagarMeTestFixture
+    {
+        [Test]
+        public void CreateWithOldFields ()
+        {
+            var bank = CreateTestBankAccount ();
 
-			bank.Save ();
+            bank.Save ();
 
-			Assert.IsNotNull (bank.Id);
+            Assert.IsNotNull (bank.Id);
 
-			var recipient = new Recipient () {
-				TransferDay = 5,
-				TransferEnabled = true,
-				TransferInterval = TransferInterval.Weekly,
-				BankAccount = bank
-			};
+            var recipient = new Recipient () {
+                TransferDay = 5,
+                TransferEnabled = true,
+                TransferInterval = TransferInterval.Weekly,
+                BankAccount = bank
+            };
 
-			recipient.Save ();
+            recipient.Save ();
 
-			Assert.IsNotNull (recipient.Id);
-		}
+            Assert.IsNotNull (recipient.Id);
+        }
 
         [Test]
         public void ReturnBalance()
@@ -140,6 +140,7 @@ namespace PagarMe.Tests
         }
 
         [Test]
+        [ExpectedException(typeof(PagarMeException))]
         public void DeleteAnticipation()
         {
             BulkAnticipation anticipation = CreateBulkAnticipationWithBuildTrue();
@@ -153,8 +154,9 @@ namespace PagarMe.Tests
             recipient.CreateAnticipation(anticipation);
             Assert.IsTrue(anticipation.Status == Enumeration.BulkAnticipationStatus.Building);
 
+            var anticipationId = anticipation.Id;
             recipient.DeleteAnticipation(anticipation);
-            Assert.IsNull(anticipation.Id);
+            recipient.Anticipations.Find (anticipationId);
         }
 
         [Test]
@@ -174,28 +176,28 @@ namespace PagarMe.Tests
         }
 
         [Test]
-		public void CreateWithNewFields()
-		{
-			var bank = CreateTestBankAccount ();
+        public void CreateWithNewFields()
+        {
+            var bank = CreateTestBankAccount ();
 
-			bank.Save ();
+            bank.Save ();
 
-			Assert.IsNotNull (bank.Id);
+            Assert.IsNotNull (bank.Id);
 
-			var recipient = new Recipient () {
-				AnticipatableVolumePercentage = 88,
-				AutomaticAnticipationEnabled = true,
-				TransferDay = 5,
-				TransferEnabled = true,
-				TransferInterval = TransferInterval.Weekly,
-				BankAccount = bank
-			};
+            var recipient = new Recipient () {
+                AnticipatableVolumePercentage = 88,
+                AutomaticAnticipationEnabled = true,
+                TransferDay = 5,
+                TransferEnabled = true,
+                TransferInterval = TransferInterval.Weekly,
+                BankAccount = bank
+            };
 
-			recipient.Save ();
+            recipient.Save ();
 
-			Assert.IsNotNull (recipient.Id);
-			Assert.AreEqual (recipient.AnticipatableVolumePercentage, 88);
-			Assert.AreEqual (recipient.AutomaticAnticipationEnabled, true);
-		}
-	}
+            Assert.IsNotNull (recipient.Id);
+            Assert.AreEqual (recipient.AnticipatableVolumePercentage, 88);
+            Assert.AreEqual (recipient.AutomaticAnticipationEnabled, true);
+        }
+    }
 }

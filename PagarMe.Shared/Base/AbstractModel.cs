@@ -268,9 +268,9 @@ namespace PagarMe.Base
             #endif
 
             #if NET40
-            if (obj != null && info.IsInstanceOfType(obj))
+            if (obj == null || info.IsInstanceOfType(obj))
             #else
-            if (obj != null && info.IsAssignableFrom(obj.GetType().GetTypeInfo()))
+            if (obj == null || info.IsAssignableFrom(obj.GetType().GetTypeInfo()))
             #endif
             {
                 return obj;

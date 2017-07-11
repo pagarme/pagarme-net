@@ -20,58 +20,59 @@ namespace PagarMe.Tests
             Assert.IsTrue(transaction.Status == TransactionStatus.Paid);
         }
 
-		[Test]
-		public void ChargeWithAsync()
-		{
-			var transaction = CreateTestTransaction();
-			transaction.Async = true;
-			transaction.Save();
+        [Test]
+        public void ChargeWithAsync()
+        {
+            var transaction = CreateTestTransaction();
+            transaction.Async = true;
+            transaction.Save();
 
-			Assert.IsTrue(transaction.Status == TransactionStatus.Processing);
-		}
+            Assert.IsTrue(transaction.Status == TransactionStatus.Processing);
+        }
 
-		[Test]
-		public void ChargeWithCustomerBornAtNull()
-		{
-			var transaction = CreateTestTransaction();
-			transaction.Customer = new Customer()
-			{
-				Name = "Aardvark Silva",
-				Email = "aardvark.silva@pagar.me",
-				BornAt = null,
-				DocumentNumber = "00000000000"
-			};
+        [Test]
+        public void ChargeWithCustomerBornAtNull()
+        {
+            var transaction = CreateTestTransaction();
+            transaction.Customer = new Customer()
+            {
+                Name = "Aardvark Silva",
+                Email = "aardvark.silva@pagar.me",
+                BornAt = null,
+                DocumentNumber = "00000000000"
+            };
 
-			transaction.Save();
+            transaction.Save();
 
-			Assert.IsNull(transaction.Customer.BornAt);
-		}
+            Assert.IsNull(transaction.Customer.BornAt);
+        }
 
-		[Test]
-		public void ChargeWithCaptureMethodEMV()
-		{
-			Type t = typeof(Transaction);
-			dynamic dTransaction = Activator.CreateInstance(t, null);
-			dTransaction.Amount = 10000;
-			CardHash card = new CardHash()
-			{
-				CardNumber = "4242424242424242",
-				CardHolderName = "Aardvark Silva",
-				CardExpirationDate = "0117",
-				CardCvv = "176"
+        [Test]
+        public void ChargeWithCaptureMethodEMV()
+        {
+            Type t = typeof(Transaction);
+            dynamic dTransaction = Activator.CreateInstance(t, null);
+            dTransaction.Amount = 10000;
+            var futureTime = DateTime.Now.AddMonths(1);
+            CardHash card = new CardHash()
+            {
+                CardNumber = "4242424242424242",
+                CardHolderName = "Aardvark Silva",
+                CardExpirationDate = futureTime.ToString("MMyy"),
+                CardCvv = "176"
 
-			};
+            };
 
-			dTransaction.CardHash = card.Generate();
-			dTransaction.capture_method = "emv";
-			dTransaction.card_track_2 = "thequickbrownfox";
-			dTransaction.card_emv_data = "jumpsoverthelazydog";
+            dTransaction.CardHash = card.Generate();
+            dTransaction.capture_method = "emv";
+            dTransaction.card_track_2 = "thequickbrownfox";
+            dTransaction.card_emv_data = "jumpsoverthelazydog";
 
-			dTransaction.Save();
+            dTransaction.Save();
 
-			Assert.IsNotNull(dTransaction.CardEmvResponse);
+            Assert.IsNotNull(dTransaction.CardEmvResponse);
 
-		}
+        }
 
         [Test]
         public void Authorize()
@@ -89,6 +90,27 @@ namespace PagarMe.Tests
         }
 
         [Test]
+        public void CaptureWithSplitRules()
+        {
+            var transaction = CreateAuthorizedTestTransaction();
+            transaction.Save();
+            Assert.IsTrue(transaction.Status == TransactionStatus.Authorized);
+            Assert.IsTrue(transaction.SplitRules == null || transaction.SplitRules.Length == 0);
+
+            var recipient = CreateRecipient();
+            recipient.Save();
+            var splitRule = new SplitRule
+            {
+                Recipient = recipient,
+                Percentage = 100
+            };
+            transaction.Capture(transaction.Amount, new SplitRule[] { splitRule });
+            var responseSplits = transaction.SplitRules;
+            Assert.IsTrue(responseSplits != null && responseSplits.Length == 1);
+            Assert.IsTrue(responseSplits[0].Recipient.Id == recipient.Id);
+        }
+
+        [Test]
         public void Refund()
         {
             var transaction = CreateTestTransaction();
@@ -99,17 +121,17 @@ namespace PagarMe.Tests
             Assert.IsTrue(transaction.Status == TransactionStatus.Refunded);
         }
 
-		[Test]
-		public void RefundWithBoleto()
-		{
-			var transaction = CreateTestBoletoTransaction();
-			transaction.Save();
-			transaction.Status = TransactionStatus.Paid;
-			transaction.Save();
-			var bankAccount = CreateTestBankAccount();
-			transaction.Refund(bankAccount);
-			Assert.IsTrue(transaction.Status == TransactionStatus.PendingRefund);
-		}
+        [Test]
+        public void RefundWithBoleto()
+        {
+            var transaction = CreateTestBoletoTransaction();
+            transaction.Save();
+            transaction.Status = TransactionStatus.Paid;
+            transaction.Save();
+            var bankAccount = CreateTestBankAccount();
+            transaction.Refund(bankAccount);
+            Assert.IsTrue(transaction.Status == TransactionStatus.PendingRefund);
+        }
 
         [Test]
         public void BoletoRefund()

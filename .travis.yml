@@ -1,7 +1,8 @@
+dist: trusty
 language: csharp
 solution: PagarMe.sln
 install:
- - sudo apt-get install -y gtk-sharp2 nunit-console
+ - sudo apt-get install -y nunit-console gtk-sharp2
  - nuget restore PagarMe.sln
 script:
  - xbuild PagarMe.sln
