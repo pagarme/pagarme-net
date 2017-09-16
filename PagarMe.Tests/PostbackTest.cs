@@ -17,8 +17,7 @@ namespace PagarMe.Tests
         {
             var transaction = PagarMeTestFixture.CreateTestBoletoTransactionWithPostbackUrl();
             await transaction.SaveAsync();
-            transaction.Status = TransactionStatus.Paid;
-            await transaction.SaveAsync();
+			PagarMeTestFixture.PayBoletoTransaction(transaction).Wait();
 
             var postbacks = transaction.Postbacks.FindAll(new Postback());
 
@@ -33,8 +32,7 @@ namespace PagarMe.Tests
         {
             var transaction = PagarMeTestFixture.CreateTestBoletoTransactionWithPostbackUrl();
             await transaction.SaveAsync();
-            transaction.Status = TransactionStatus.Paid;
-            await transaction.SaveAsync();
+			PagarMeTestFixture.PayBoletoTransaction(transaction).Wait();
 
 			Postback postback = transaction.Postbacks.FindAll(new Postback()).FirstOrDefault();
             Postback postbackReturned = transaction.Postbacks.Find(postback.Id);
@@ -49,8 +47,7 @@ namespace PagarMe.Tests
         {
             var transaction = PagarMeTestFixture.CreateTestBoletoTransactionWithPostbackUrl();
             await transaction.SaveAsync();
-            transaction.Status = TransactionStatus.Paid;
-            await transaction.SaveAsync();
+			PagarMeTestFixture.PayBoletoTransaction(transaction).Wait();
 
 			Postback postback = transaction.Postbacks.FindAll(new Postback()).FirstOrDefault();
             postback.Redeliver();

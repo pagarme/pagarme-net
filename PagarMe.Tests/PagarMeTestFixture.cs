@@ -136,6 +136,12 @@ namespace PagarMe.Tests
             };
         }
 
+		public static async Task PayBoletoTransaction(Transaction t)
+		{
+			t.Status = TransactionStatus.Paid;
+			await t.SaveAsync();
+		}
+
 		public static Transaction CreateTestTransaction()
 		{
 			return new Transaction
