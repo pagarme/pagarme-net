@@ -139,6 +139,7 @@ namespace PagarMe.Tests
 		public static async Task PayBoletoTransaction(Transaction t)
 		{
 			t.Status = TransactionStatus.Paid;
+			await Task.Delay(2000);
 			await t.SaveAsync();
 		}
 
