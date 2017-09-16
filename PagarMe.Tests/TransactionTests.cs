@@ -62,6 +62,7 @@ namespace PagarMe.Tests
 			};
 
 			dTransaction.CardHash = card.Generate();
+			dTransaction.acquirers_configuration_id = "ac_cj7nrwwjb057txv6et3k5fd8c";
 			dTransaction.capture_method = "emv";
 			dTransaction.card_track_2 = "0";
 			dTransaction.card_emv_data = "9F26009F02009F10009F37009F360095009A009C005F2A009F1A0082009F03009F33009F3400";
