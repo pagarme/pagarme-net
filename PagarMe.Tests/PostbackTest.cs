@@ -13,12 +13,12 @@ namespace PagarMe.Tests
     class PostbackTest
     {
         [Test]
-        public void FindAllPostbacksTest()
+        public async Task FindAllPostbacksTest()
         {
             var transaction = PagarMeTestFixture.CreateTestBoletoTransactionWithPostbackUrl();
-            transaction.Save();
+            await transaction.SaveAsync();
             transaction.Status = TransactionStatus.Paid;
-            transaction.Save();
+            await transaction.SaveAsync();
 
             var postbacks = transaction.Postbacks.FindAll(new Postback());
 
@@ -29,12 +29,12 @@ namespace PagarMe.Tests
         }
 
         [Test]
-        public void FindPostbackTest()
+        public async Task FindPostbackTest()
         {
             var transaction = PagarMeTestFixture.CreateTestBoletoTransactionWithPostbackUrl();
-            transaction.Save();
+            await transaction.SaveAsync();
             transaction.Status = TransactionStatus.Paid;
-            transaction.Save();
+            await transaction.SaveAsync();
 
             Postback postback = transaction.Postbacks.FindAll(new Postback()).First();
             Postback postbackReturned = transaction.Postbacks.Find(postback.Id);
@@ -45,12 +45,12 @@ namespace PagarMe.Tests
         }
 
         [Test]
-        public void RedeliverPostbackTest()
+        public async Task RedeliverPostbackTest()
         {
             var transaction = PagarMeTestFixture.CreateTestBoletoTransactionWithPostbackUrl();
-            transaction.Save();
+            await transaction.SaveAsync();
             transaction.Status = TransactionStatus.Paid;
-            transaction.Save();
+            await transaction.SaveAsync();
 
             Postback postback = transaction.Postbacks.FindAll(new Postback()).First();
             postback.Redeliver();

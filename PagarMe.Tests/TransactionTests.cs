@@ -47,8 +47,8 @@ namespace PagarMe.Tests
 			Assert.IsNull(transaction.Customer.BornAt);
 		}
 
-		[Test]
-		public void ChargeWithCaptureMethodEMV()
+        [Test]
+        public void ChargeWithCaptureMethodEMV()
 		{
 			Type t = typeof(Transaction);
 			dynamic dTransaction = Activator.CreateInstance(t, null);
@@ -57,15 +57,13 @@ namespace PagarMe.Tests
 			{
 				CardNumber = "4242424242424242",
 				CardHolderName = "Aardvark Silva",
-				CardExpirationDate = "0117",
-				CardCvv = "176"
-
+				CardExpirationDate = "0117"
 			};
 
 			dTransaction.CardHash = card.Generate();
 			dTransaction.capture_method = "emv";
-			dTransaction.card_track_2 = "thequickbrownfox";
-			dTransaction.card_emv_data = "jumpsoverthelazydog";
+			dTransaction.card_track_2 = "0";
+			dTransaction.card_emv_data = "9F26009F02009F10009F37009F360095009A009C005F2A009F1A0082009F03009F33009F3400";
 
 			dTransaction.Save();
 

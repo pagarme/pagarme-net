@@ -132,10 +132,9 @@ namespace PagarMe.Tests
             {
                 Amount = 1099,
                 PaymentMethod = PaymentMethod.Boleto,
-                PostbackUrl = "https://requestb.in/api/v1/bins"
+                PostbackUrl = "https://apitest.me/handlepostback"
             };
         }
-
 
 		public static Transaction CreateTestTransaction()
 		{
