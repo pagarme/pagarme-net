@@ -36,7 +36,7 @@ namespace PagarMe.Tests
             transaction.Status = TransactionStatus.Paid;
             await transaction.SaveAsync();
 
-            Postback postback = transaction.Postbacks.FindAll(new Postback()).First();
+			Postback postback = transaction.Postbacks.FindAll(new Postback()).FirstOrDefault();
             Postback postbackReturned = transaction.Postbacks.Find(postback.Id);
 
             Assert.IsTrue(postback.Id.Equals(postbackReturned.Id));
@@ -52,7 +52,7 @@ namespace PagarMe.Tests
             transaction.Status = TransactionStatus.Paid;
             await transaction.SaveAsync();
 
-            Postback postback = transaction.Postbacks.FindAll(new Postback()).First();
+			Postback postback = transaction.Postbacks.FindAll(new Postback()).FirstOrDefault();
             postback.Redeliver();
 
             Assert.IsTrue(postback.Status == PostbackStatus.PendingRetry);

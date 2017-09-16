@@ -57,7 +57,8 @@ namespace PagarMe.Tests
 			{
 				CardNumber = "4242424242424242",
 				CardHolderName = "Aardvark Silva",
-				CardExpirationDate = "0117"
+				CardExpirationDate = "0140",
+				CardCvv = "123"
 			};
 
 			dTransaction.CardHash = card.Generate();
