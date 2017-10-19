@@ -84,14 +84,9 @@ namespace PagarMe.Tests
             Transfer transfer = PagarMeTestFixture.CreateTestTransfer(bank.Id, recipient.Id);
             transfer.Save();
 
-            Transfer transferReturned = PagarMeService.GetDefaultService().Transfers.FindAll(new Transfer()).ToArray().First();
+            var transfers = PagarMeService.GetDefaultService().Transfers.FindAll(new Transfer());
 
-            Assert.IsTrue(transferReturned.Id.Equals(transfer.Id));
-            Assert.IsTrue(transferReturned.Amount.Equals(transfer.Amount));
-            Assert.IsTrue(transferReturned.DateCreated.Equals(transfer.DateCreated));
-            Assert.IsTrue(transferReturned.Fee.Equals(transfer.Fee));
-            Assert.IsTrue(transferReturned.Status.Equals(transfer.Status));
-            Assert.IsTrue(transferReturned.Type.Equals(transfer.Type));
+            Assert.GreaterOrEqual(transfers.Count(), 1);
 
         }
 
