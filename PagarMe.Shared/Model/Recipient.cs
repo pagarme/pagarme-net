@@ -135,7 +135,7 @@ namespace PagarMe
             var request = CreateRequest("DELETE", "/bulk_anticipations/" + anticipation.Id);
             request.Execute();
 
-			anticipation.LoadFrom("{}");
+            anticipation.LoadFrom("{}");
         }
 
         public Base.ModelCollection<BulkAnticipation> Anticipations
