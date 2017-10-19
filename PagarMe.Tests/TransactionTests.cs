@@ -64,9 +64,8 @@ namespace PagarMe.Tests
 			dTransaction.CardHash = card.Generate();
 			dTransaction.acquirers_configuration_id = "ac_cj7nrwwjb057txv6et3k5fd8c";
 			dTransaction.capture_method = "emv";
-			dTransaction.card_track_2 = "0";
-			dTransaction.card_emv_data = "9F26009F02009F10009F37009F360095009A009C005F2A009F1A0082009F03009F33009F3400";
-
+			dTransaction.card_track_2 = "4242424242424242%3D51046070000091611111";
+            dTransaction.card_emv_data = "9A031708119C01009F02060000000001009F10200FA501A030F8000000000000000000000F0000000000000000000000000000009F1A0200769F1E0830303030303030309F2608DF91B6A4D449C9819F3303E0F0E89F360202889F370411859D5F9F2701809F34034203005F2A0209868202580095056280046000";
 			dTransaction.Save();
 
 			Assert.IsNotNull(dTransaction.CardEmvResponse);
