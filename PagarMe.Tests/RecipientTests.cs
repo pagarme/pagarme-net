@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using PagarMe.Model;
+using PagarMe.Filter;
 
 namespace PagarMe.Tests
 {
@@ -58,6 +59,40 @@ namespace PagarMe.Tests
 
             Assert.IsNotNull(operation.First().MovementPayable);
             Assert.IsNull(operation.First().MovementBulkAnticipation);
+        }
+
+        [Test]
+        public void QueryBalaceOperationsAfter ()
+        {
+            Recipient recipient = CreateRecipient ();
+            recipient.Save ();
+
+            Transaction transaction = CreateBoletoSplitRuleTransaction (recipient);
+            transaction.Save ();
+            transaction.Status = TransactionStatus.Paid;
+            transaction.Save ();
+            var query = new BalanceOperationQueriableParameters ();
+            query.After(DateTime.Now.AddDays(1));
+            BalanceOperation [] operation = recipient.Balance.Operations.FindAll (query).ToArray ();
+
+            Assert.AreEqual (0, operation.Length);
+        }
+
+        [Test]
+        public void QueryBalaceOperationsBefore ()
+        {
+            Recipient recipient = CreateRecipient ();
+            recipient.Save ();
+
+            Transaction transaction = CreateBoletoSplitRuleTransaction (recipient);
+            transaction.Save ();
+            transaction.Status = TransactionStatus.Paid;
+            transaction.Save ();
+            var query = new BalanceOperationQueriableParameters ();
+            query.BeforeThan (DateTime.Now.AddDays(-1));
+            BalanceOperation [] operation = recipient.Balance.Operations.FindAll (query).ToArray ();
+
+            Assert.AreEqual (0, operation.Length);
         }
 
         [Test]

@@ -68,8 +68,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Base\SerializationType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Event.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Filter\QueriableParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Filter\BalanceOperationQueriableParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\QueriableModelCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Serialization\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Filter\" />
   </ItemGroup>
 </Project>

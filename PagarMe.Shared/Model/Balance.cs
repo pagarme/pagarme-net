@@ -1,4 +1,5 @@
 ﻿using PagarMe.Base;
+using PagarMe.Filter;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,8 +30,8 @@ namespace PagarMe.Model
         {
             get { return GetAttribute<Amount>("transferred").amount; }
         }
-
-        public ModelCollection<BalanceOperation> Operations
+        
+        public QueriableModelCollection<BalanceOperation, BalanceOperationQueriableParameters> Operations
         {
             get { return new BalanceOperation(Service, endpointPrefix).History(Endpoint); }
         }

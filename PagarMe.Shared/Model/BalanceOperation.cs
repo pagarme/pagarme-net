@@ -1,4 +1,5 @@
 ﻿using PagarMe.Base;
+using PagarMe.Filter;
 using PagarMe.Enumeration;
 using System;
 using System.Collections.Generic;
@@ -102,10 +103,10 @@ namespace PagarMe.Model
                     return null;
             }
         }
-
-        public Base.ModelCollection<BalanceOperation> History(string endpoint)
+        
+        public PagarMe.Base.QueriableModelCollection<BalanceOperation, BalanceOperationQueriableParameters> History(string endpoint)
         {
-           return new ModelCollection<BalanceOperation>(Service, endpoint + Endpoint, endpointPrefix ); 
+            return new QueriableModelCollection<BalanceOperation, BalanceOperationQueriableParameters>(Service, endpoint + Endpoint, endpointPrefix ); 
         }
     }
 }
