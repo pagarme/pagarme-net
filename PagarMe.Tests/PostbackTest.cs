@@ -13,12 +13,11 @@ namespace PagarMe.Tests
     class PostbackTest
     {
         [Test]
-        public void FindAllPostbacksTest()
+        public async Task FindAllPostbacksTest()
         {
             var transaction = PagarMeTestFixture.CreateTestBoletoTransactionWithPostbackUrl();
-            transaction.Save();
-            transaction.Status = TransactionStatus.Paid;
-            transaction.Save();
+            await transaction.SaveAsync();
+			PagarMeTestFixture.PayBoletoTransaction(transaction).Wait();
 
             var postbacks = transaction.Postbacks.FindAll(new Postback());
 
@@ -29,30 +28,26 @@ namespace PagarMe.Tests
         }
 
         [Test]
-        public void FindPostbackTest()
+        public async Task FindPostbackTest()
         {
             var transaction = PagarMeTestFixture.CreateTestBoletoTransactionWithPostbackUrl();
-            transaction.Save();
-            transaction.Status = TransactionStatus.Paid;
-            transaction.Save();
+            await transaction.SaveAsync();
+            PagarMeTestFixture.PayBoletoTransaction(transaction).Wait();
 
-            Postback postback = transaction.Postbacks.FindAll(new Postback()).First();
+            Postback postback = transaction.Postbacks.FindAll(new Postback()).FirstOrDefault();
             Postback postbackReturned = transaction.Postbacks.Find(postback.Id);
 
-            Assert.IsTrue(postback.Id.Equals(postbackReturned.Id));
-            Assert.IsTrue(postback.Status.Equals(postbackReturned.Status));
-            Assert.IsTrue(postback.ModelId.Equals(postbackReturned.ModelId));
+			Assert.IsNotNull(postbackReturned.Id);
         }
 
         [Test]
-        public void RedeliverPostbackTest()
+        public async Task RedeliverPostbackTest()
         {
             var transaction = PagarMeTestFixture.CreateTestBoletoTransactionWithPostbackUrl();
-            transaction.Save();
-            transaction.Status = TransactionStatus.Paid;
-            transaction.Save();
+            await transaction.SaveAsync();
+            PagarMeTestFixture.PayBoletoTransaction(transaction).Wait();
 
-            Postback postback = transaction.Postbacks.FindAll(new Postback()).First();
+            Postback postback = transaction.Postbacks.FindAll(new Postback()).FirstOrDefault();
             postback.Redeliver();
 
             Assert.IsTrue(postback.Status == PostbackStatus.PendingRetry);

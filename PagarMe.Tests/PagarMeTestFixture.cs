@@ -132,10 +132,16 @@ namespace PagarMe.Tests
             {
                 Amount = 1099,
                 PaymentMethod = PaymentMethod.Boleto,
-                PostbackUrl = "https://requestb.in/api/v1/bins"
+                PostbackUrl = "https://apitest.me/handlepostback"
             };
         }
 
+		public static async Task PayBoletoTransaction(Transaction t)
+		{
+			t.Status = TransactionStatus.Paid;
+			await Task.Delay(2000);
+			await t.SaveAsync();
+		}
 
 		public static Transaction CreateTestTransaction()
 		{

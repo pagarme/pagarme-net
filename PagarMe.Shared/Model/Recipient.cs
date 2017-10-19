@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PagarMe.Model;
 using PagarMe.Base;
 
@@ -132,9 +133,9 @@ namespace PagarMe
         public void DeleteAnticipation(BulkAnticipation anticipation)
         {
             var request = CreateRequest("DELETE", "/bulk_anticipations/" + anticipation.Id);
-            var response = request.Execute();
+            request.Execute();
 
-            anticipation.LoadFrom(response.Body);
+            anticipation.LoadFrom("{}");
         }
 
         public Base.ModelCollection<BulkAnticipation> Anticipations
