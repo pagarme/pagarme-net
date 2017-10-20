@@ -366,7 +366,7 @@ namespace PagarMe
             request.Query =  BuildQueryForKeys("bank_account", bank.ToDictionary(Base.SerializationType.Plain));
 
             if (amount.HasValue)
-                request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
+				request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
 
             ExecuteSelfRequest(request);
         }
@@ -376,9 +376,10 @@ namespace PagarMe
             var request = CreateRequest("POST", "/refund");
 
             if (amount.HasValue)
-                request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
-
-            request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString()));
+				request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
+			
+			if(!asyncRefund)
+				request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString().ToLower()));
 
             ExecuteSelfRequest(request);
         }
@@ -388,9 +389,10 @@ namespace PagarMe
             var request = CreateRequest("POST", "/refund");
 
             if (amount.HasValue)
-                request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
-			
-            request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString()));
+				request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
+
+			if(!asyncRefund)
+				request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString().ToLower()));
 
             await ExecuteSelfRequestAsync(request);
         }

@@ -97,6 +97,31 @@ namespace PagarMe.Tests
 
             Assert.IsTrue(transaction.Status == TransactionStatus.Refunded);
         }
+		[Test]
+		public async Task RefundWithSynchronousRequest()
+		{
+			var transaction = CreateTestCardTransactionWithInstallments();
+			transaction.PostbackUrl = "https://api.aardvark.me/1/handlepostback";
+			transaction.Async = false;
+			await transaction.SaveAsync();
+
+			transaction.Refund(asyncRefund: false);
+
+			Assert.IsTrue(transaction.Status == TransactionStatus.Refunded);
+		}
+
+		[Test]
+		public async Task RefundWithAsynchronousRequest()
+		{
+			var transaction = CreateTestCardTransactionWithInstallments();
+			transaction.PostbackUrl = "https://api.aardvark.me/1/handlepostback";
+			transaction.Async = false;
+			await transaction.SaveAsync();
+
+			transaction.Refund();
+
+			Assert.IsTrue(transaction.Status == TransactionStatus.Paid);
+		}
 
 		[Test]
 		public void RefundWithBoleto()
