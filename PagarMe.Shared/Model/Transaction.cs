@@ -359,31 +359,38 @@ namespace PagarMe
             await ExecuteSelfRequestAsync(request);
         }
 
-        public void Refund(BankAccount bank)
+		public void Refund(BankAccount bank, int? amount = null)
         {
             var request = CreateRequest("POST", "/refund");
 
             request.Query =  BuildQueryForKeys("bank_account", bank.ToDictionary(Base.SerializationType.Plain));
 
-            ExecuteSelfRequest(request);
-        }
-
-        public void Refund(int? amount = null)
-        {
-            var request = CreateRequest("POST", "/refund");
-
             if (amount.HasValue)
                 request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
 
             ExecuteSelfRequest(request);
         }
 
-		public async void RefundAsync(int? amount = null)
+		public void Refund(int? amount = null, bool asyncRefund = true)
         {
             var request = CreateRequest("POST", "/refund");
 
             if (amount.HasValue)
                 request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
+
+            request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString()));
+
+            ExecuteSelfRequest(request);
+        }
+
+		public async void RefundAsync(int? amount = null, bool asyncRefund = true)
+        {
+            var request = CreateRequest("POST", "/refund");
+
+            if (amount.HasValue)
+                request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
+			
+            request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString()));
 
             await ExecuteSelfRequestAsync(request);
         }
