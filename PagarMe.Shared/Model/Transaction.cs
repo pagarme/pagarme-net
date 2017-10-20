@@ -359,7 +359,7 @@ namespace PagarMe
             await ExecuteSelfRequestAsync(request);
         }
 
-		public void Refund(BankAccount bank, int? amount = null)
+		public void Refund(BankAccount bank, int? amount = null, bool asyncRefund = true)
         {
             var request = CreateRequest("POST", "/refund");
 
@@ -367,6 +367,9 @@ namespace PagarMe
 
             if (amount.HasValue)
 				request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
+
+			if (!asyncRefund)
+				request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString().ToLower()));
 
             ExecuteSelfRequest(request);
         }
