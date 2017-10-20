@@ -368,7 +368,7 @@ namespace PagarMe
             if (amount.HasValue)
                 request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
 
-			if (!asyncRefund)
+            if (!asyncRefund)
                 request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString().ToLower()));
 
             ExecuteSelfRequest(request);
@@ -381,7 +381,7 @@ namespace PagarMe
             if (amount.HasValue)
                 request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
 			
-			if(!asyncRefund)
+            if(!asyncRefund)
                 request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString().ToLower()));
 
             ExecuteSelfRequest(request);
@@ -394,7 +394,7 @@ namespace PagarMe
             if (amount.HasValue)
                 request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
 
-			if(!asyncRefund)
+            if(!asyncRefund)
                 request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString().ToLower()));
 
             await ExecuteSelfRequestAsync(request);
