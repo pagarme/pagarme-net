@@ -100,7 +100,7 @@ namespace PagarMe.Tests
 				AgenciaDv = "8",
 				Conta = "08808",
 				ContaDv = "8",
-                Type = AccountType.Corrente,
+				Type = AccountType.Corrente,
 				DocumentNumber = "43591017833",
 				LegalName = "Teste " + DateTime.Now.ToShortTimeString()
 			};
