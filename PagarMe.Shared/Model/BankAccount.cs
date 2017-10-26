@@ -62,6 +62,12 @@ namespace PagarMe
 			set { SetAttribute("conta_dv", value); }
 		}
 
+        public AccountType Type
+        {
+            get { return GetAttribute<AccountType>("type"); }
+            set { SetAttribute("type", value); }
+        }
+
 		public DocumentType DocumentType
 		{
 			get { return GetAttribute<DocumentType>("document_type"); }
