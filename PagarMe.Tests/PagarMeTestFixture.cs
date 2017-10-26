@@ -27,6 +27,7 @@ namespace PagarMe.Tests
                 Agencia = "0609",
                 Conta = "03032",
                 ContaDv = "5",
+                Type = AccountType.Corrente,
                 DocumentNumber = "44417398850",
                 LegalName = "Fellipe xD"
             };
@@ -99,6 +100,7 @@ namespace PagarMe.Tests
 				AgenciaDv = "8",
 				Conta = "08808",
 				ContaDv = "8",
+				Type = AccountType.Corrente,
 				DocumentNumber = "43591017833",
 				LegalName = "Teste " + DateTime.Now.ToShortTimeString()
 			};
