@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CardHash.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumeration\AccountType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumeration\AntifraudStatus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumeration\BulkAnticipationStatus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enumeration\CardBrand.cs" />
