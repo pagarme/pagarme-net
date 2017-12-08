@@ -91,6 +91,42 @@ namespace PagarMe
             set { SetAttribute("phone", value); }
         }
 
+        public string ExternalId
+        {
+            get { return GetAttribute<string>("external_id"); }
+            set { SetAttribute("external_id", value); }
+        }
+
+        public CustomerType Type
+        {
+            get { return GetAttribute<CustomerType>("type"); }
+            set { SetAttribute("type", value); }
+        }
+
+        public string Country
+        {
+            get { return GetAttribute<string>("country"); }
+            set { SetAttribute("country", value); }
+        }
+
+        public Document[] Documents
+        {
+            get { return GetAttribute<Document[]>("documents"); }
+            set { SetAttribute("documents", value); }
+        }
+
+        public string[] PhoneNumbers
+        {
+            get { return GetAttribute<string[]>("phone_numbers"); }
+            set { SetAttribute("phone_numbers", value); }
+        }
+
+        public string Birthday
+        {
+            get { return GetAttribute<string>("birthday"); }
+            set { SetAttribute("birthday", value); }
+        }
+
         public Customer()
             : this(null)
         {
