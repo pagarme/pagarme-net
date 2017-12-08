@@ -68,6 +68,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Base\SerializationType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Event.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumeration\CustomerType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Document.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Billing.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Shipping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Item.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Serialization\" />
