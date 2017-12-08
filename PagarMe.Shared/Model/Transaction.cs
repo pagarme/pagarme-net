@@ -283,6 +283,18 @@ namespace PagarMe
             set { SetAttribute("split_rules", value); }
         }
 
+        public Billing Billing
+        {
+            get { return GetAttribute<Billing>("billing"); }
+            set { SetAttribute("billing", value); }
+        }
+
+        public Shipping Shipping
+        {
+            get { return GetAttribute<Shipping>("shipping"); }
+            set { SetAttribute("shipping", value); }
+        }
+
         public Base.ModelCollection<Event> Events
         {
             get
