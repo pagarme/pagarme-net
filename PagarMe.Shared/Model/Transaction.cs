@@ -295,6 +295,12 @@ namespace PagarMe
             set { SetAttribute("shipping", value); }
         }
 
+        public Item[] Item
+        {
+            get { return GetAttribute<Item[]>("items"); }
+            set { SetAttribute("items", value); }
+        }
+
         public Base.ModelCollection<Event> Events
         {
             get
