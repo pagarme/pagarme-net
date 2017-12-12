@@ -67,7 +67,7 @@ namespace PagarMe.Tests
             recipient.Save();
 
             DateTime date = DateTime.Now;
-            date = date.AddDays(5);
+            date = GenerateValidAnticipationDate();
 
             var limit = recipient.MaxAnticipationValue(TimeFrame.Start, date);
             Assert.IsTrue(limit.Amount == 0);
@@ -80,7 +80,7 @@ namespace PagarMe.Tests
             recipient.Save();
 
             DateTime date = DateTime.Now;
-            date = date.AddDays(5);
+            date = GenerateValidAnticipationDate();
 
             var limit = recipient.MinAnticipationValue(TimeFrame.Start, date);
             Assert.IsTrue(limit.Amount == 0);

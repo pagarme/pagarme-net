@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.IO;
 
 namespace PagarMe.Tests
@@ -109,7 +110,7 @@ namespace PagarMe.Tests
             return new BulkAnticipation()
             {
                 Timeframe = TimeFrame.Start,
-                PaymentDate = DateTime.Now.AddDays(5),
+                PaymentDate = GenerateValidAnticipationDate(),
                 RequestedAmount = 900000,
                 Build = false
             };
@@ -120,7 +121,7 @@ namespace PagarMe.Tests
             return new BulkAnticipation()
             {
                 Timeframe = TimeFrame.Start,
-                PaymentDate = DateTime.Now.AddDays(5),
+                PaymentDate = GenerateValidAnticipationDate(),
                 Build = true,
                 RequestedAmount = 900000
             };
@@ -235,5 +236,54 @@ namespace PagarMe.Tests
         {
             return PagarMeService.GetDefaultService().Payables.Find(id);
         }
-	}
+
+        public static DateTime GenerateValidAnticipationDate()
+        {
+            DateTime Today = new DateTime();
+            Today = DateTime.Now;
+
+            DateTime AnticipationDate = new DateTime();
+            AnticipationDate = Today.AddDays(5);
+
+            while (!isValidDay(AnticipationDate))
+            {
+                AnticipationDate = AnticipationDate.AddDays(2);
+            }
+            return AnticipationDate;
+        }
+
+        private static Boolean isValidDay(DateTime AnticipationDate)
+        {
+            return !(AnticipationDate.DayOfWeek == DayOfWeek.Sunday || AnticipationDate.DayOfWeek == DayOfWeek.Saturday || isHoliday(AnticipationDate));
+        }
+
+        private static Boolean isHoliday(DateTime AnticipationDate)
+        {
+            var Holidays = GetPagarMeOfficialHolidays(AnticipationDate);
+
+            return Holidays.Any(AnticipationDate.ToString("yyyy-MM-dd").Contains);
+        }
+
+        private static List<string> GetPagarMeOfficialHolidays(DateTime AnticipationDate)
+        {
+            string HolidayCalendarPath = "https://raw.githubusercontent.com/pagarme/business-calendar/master/data/brazil/";
+            Uri CalendarURL = new Uri(HolidayCalendarPath + AnticipationDate.Year.ToString() + ".json");
+            var request = (HttpWebRequest)WebRequest.Create(CalendarURL);
+            var response = (HttpWebResponse)request.GetResponse();
+
+            var PagarMeCalendarString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            JObject PagarMeCalendarJson = JsonConvert.DeserializeObject<JObject>(PagarMeCalendarString);
+
+            var PagarMeCalendar = PagarMeCalendarJson["calendar"];
+
+            var Holidays = new List<string>();
+
+            foreach (var CalendarDay in PagarMeCalendar)
+            {
+                Holidays.Add(CalendarDay["date"].ToString());
+            };
+
+            return Holidays;
+        }
+    }
 }
