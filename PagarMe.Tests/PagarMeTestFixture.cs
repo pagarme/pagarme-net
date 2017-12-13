@@ -127,14 +127,19 @@ namespace PagarMe.Tests
             };
         }
 
-        public static Transaction CreateTestBoletoTransactionWithPostbackUrl()
+        public static Transaction BoletoTransactionPaidWithPostbackURL()
         {
-            return new Transaction
+            var transaction = new Transaction
             {
                 Amount = 1099,
                 PaymentMethod = PaymentMethod.Boleto,
                 PostbackUrl = "https://apitest.me/handlepostback"
             };
+            transaction.Save();
+            transaction.Status = TransactionStatus.Paid;
+            transaction.Save();
+
+            return transaction;
         }
 
 		public static async Task PayBoletoTransaction(Transaction t)
