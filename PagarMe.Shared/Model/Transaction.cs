@@ -140,16 +140,14 @@ namespace PagarMe
             set { SetAttribute("soft_descriptor", value); }
         }
 
-        public int Tid
+        public string Tid
         {
-            get { return GetAttribute<int>("tid"); }
-            set { SetAttribute("tid", value); }
+            get { return GetAttribute<string>("tid"); }
         }
 
-        public int Nsu
+        public string Nsu
         {
-            get { return GetAttribute<int>("nsu"); }
-            set { SetAttribute("nsu", value); }
+            get { return GetAttribute<string>("nsu"); }
         }
 
         public int Amount
