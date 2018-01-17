@@ -70,16 +70,16 @@ namespace PagarMe
             set { SetAttribute("recipient_id", value); }
         }
 
-        public string PaymentDate
+        public DateTime PaymentDate
         {
-            get { return GetAttribute<string>("payment_date"); }
-            set { SetAttribute("payment_date", value); }
+            get { return GetAttribute<DateTime>("payment_date"); }
+            set { SetAttribute("payment_date", Utils.ConvertToUnixTimeStamp(value)); }
         }
 
-        public string OriginalPaymentDate
+        public DateTime OriginalPaymentDate
         {
-            get { return GetAttribute<string>("original_payment_date"); }
-            set { SetAttribute("original_payment_date", value); }
+            get { return GetAttribute<DateTime>("original_payment_date"); }
+            set { SetAttribute("original_payment_date", Utils.ConvertToUnixTimeStamp(value)); }
         }
 
         public PayableType Type
