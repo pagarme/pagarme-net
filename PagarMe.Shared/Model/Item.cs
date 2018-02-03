@@ -67,6 +67,19 @@ namespace PagarMe
             set { SetAttribute("tangible", value); }
         }
 
+        public string Date
+        {
+            get { return GetAttribute<String>("date"); }
+            set { SetAttribute("date", value); }
+        }
+
+        public string Venue
+        {
+            get { return GetAttribute<String>("venue"); }
+            set { SetAttribute("venue", value); }
+        }
+
+
         public Item()
             : this(null)
         {
