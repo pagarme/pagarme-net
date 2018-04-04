@@ -78,6 +78,24 @@ namespace PagarMe
             set { SetAttribute("anticipatable_volume_percentage", value); }
         }
 
+        public string AutomaticAnticipationType
+        {
+            get { return GetAttribute<String>("automatic_anticipation_type"); }
+            set { SetAttribute("automatic_anticipation_type", value); }
+        }
+
+        public int AutomaticAnticipationDelay
+        {
+            get { return GetAttribute<int>("automatic_anticipation_delay"); }
+            set { SetAttribute("automatic_anticipation_delay", value); }
+        }
+
+        public string AutomaticAnticipationDays
+        {
+            get{ return GetAttribute<String>("automatic_anticipation_days"); }
+            set { SetAttribute("automatic_anticipation_days",value);}
+        }
+
         public Balance Balance
         {
             get { return new ModelCollection<Balance>(Service, "/balance", Endpoint + "/" + Id).FindAllObject(new Balance()); }
