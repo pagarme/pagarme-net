@@ -84,10 +84,10 @@ namespace PagarMe
             set { SetAttribute("automatic_anticipation_type", value); }
         }
 
-        public int AutomaticAnticipationDelay
+        public int AutomaticAnticipation1025Delay
         {
-            get { return GetAttribute<int>("automatic_anticipation_delay"); }
-            set { SetAttribute("automatic_anticipation_delay", value); }
+            get { return GetAttribute<int>("automatic_anticipation_1025_delay"); }
+            set { SetAttribute("automatic_anticipation_1025_delay", value); }
         }
 
         public string AutomaticAnticipationDays
