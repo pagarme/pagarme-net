@@ -80,5 +80,28 @@ namespace PagarMe.Tests
 
 			Assert.AreEqual (subscription.Status, SubscriptionStatus.Canceled);
 		}
+        [Test]
+        public void SettleChargeWithoutParameters()
+        {
+            var plan = CreateBoletoTestPlan();
+            plan.Save();
+
+            Assert.AreNotEqual(plan.Id, 0);
+
+            var subscription = new Subscription
+            {
+                Customer = new Customer
+                {
+                    Email = "josedasilva@pagar.me"
+                },
+                Plan = plan
+            };
+
+            subscription.Save();
+            subscription.settleCharges();
+
+            Assert.AreEqual(subscription.Status, SubscriptionStatus.Paid);
+        } 
 	}
+
 }
