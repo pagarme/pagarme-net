@@ -90,6 +90,7 @@ namespace PagarMe.Tests
 
             var subscription = new Subscription
             {
+                PaymentMethod = PaymentMethod.Boleto,
                 Customer = new Customer
                 {
                     Email = "josedasilva@pagar.me"
@@ -101,6 +102,29 @@ namespace PagarMe.Tests
             subscription.settleCharges();
 
             Assert.AreEqual(subscription.Status, SubscriptionStatus.Paid);
+        } 
+        [Test]
+        public void SettleChargeWithParameters()
+        {
+            var plan = CreateBoletoTestPlan();
+            plan.Save();
+
+            Assert.AreNotEqual(plan.Id, 0);
+
+            var subscription = new Subscription
+            {
+                PaymentMethod = PaymentMethod.Boleto,
+                Customer = new Customer
+                {
+                    Email = "josedasilva@pagar.me"
+                },
+                Plan = plan
+            };
+
+            subscription.Save();
+            subscription.settleCharges(4);
+
+            Assert.AreEqual(subscription.SettledCharges.Count(), 4);
         } 
 	}
 
