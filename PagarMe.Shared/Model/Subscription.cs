@@ -175,7 +175,14 @@ namespace PagarMe
         {
             var request = CreateRequest("POST", "/cancel");
 
+
             await ExecuteSelfRequestAsync(request);
+        }
+
+        public void settleCharges(int chargesToSettle = 1){
+            var request = CreateRequest("POST", "/settle_charge");
+            request.Query.Add(new Tuple<string, string>("charges", chargesToSettle.ToString()));
+            ExecuteSelfRequest(request);
         }
 
         protected override void CoerceTypes()
