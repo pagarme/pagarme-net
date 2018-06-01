@@ -146,6 +146,12 @@ namespace PagarMe
             set { SetAttribute("payment_method", value); }
         }
 
+        public int[] SettledCharges
+        {
+            get { return GetAttribute<int[]>("settled_charges"); }
+
+        }
+
         public Base.AbstractModel Metadata
         {
             get { return GetAttribute<Base.AbstractModel>("metadata"); }
@@ -179,7 +185,8 @@ namespace PagarMe
             await ExecuteSelfRequestAsync(request);
         }
 
-        public void settleCharges(int chargesToSettle = 1){
+        public void settleCharges(int chargesToSettle = 1)
+        {
             var request = CreateRequest("POST", "/settle_charge");
             request.Query.Add(new Tuple<string, string>("charges", chargesToSettle.ToString()));
             ExecuteSelfRequest(request);
