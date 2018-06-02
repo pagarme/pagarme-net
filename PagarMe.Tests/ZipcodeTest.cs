@@ -11,7 +11,7 @@ namespace PagarMe.Tests
             zipcode.CheckZipcode("04250000");
             Assert.AreEqual("São Paulo",zipcode.City);
             Assert.AreEqual("SP",zipcode.State);
-            Assert.AreEqual("Rua Budapeste",zipcode.City);
+            Assert.AreEqual("Rua Budapeste",zipcode.Street);
             Assert.AreEqual("Vila Marte", zipcode.Neighborhood);
         } 
     }
