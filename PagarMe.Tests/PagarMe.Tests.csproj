@@ -53,6 +53,7 @@
     <Compile Include="RecipientTests.cs" />
     <Compile Include="TransferTest.cs" />
     <Compile Include="BankAccountTests.cs" />
+    <Compile Include="ZipcodeTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
