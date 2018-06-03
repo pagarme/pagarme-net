@@ -75,6 +75,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Shipping.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Item.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CompanyTemporary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Operation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Serialization\" />
