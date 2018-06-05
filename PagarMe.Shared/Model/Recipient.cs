@@ -96,6 +96,16 @@ namespace PagarMe
             set { SetAttribute("automatic_anticipation_days",value);}
         }
 
+        public string Status
+        {
+            get { return GetAttribute<string>("status"); }
+        }
+
+        public string StatusReason
+        {
+            get { return GetAttribute<string>("status_reason"); }
+        }
+             
         public Balance Balance
         {
             get { return new ModelCollection<Balance>(Service, "/balance", Endpoint + "/" + Id).FindAllObject(new Balance()); }
