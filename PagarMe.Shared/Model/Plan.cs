@@ -92,6 +92,12 @@ namespace PagarMe
             set { SetAttribute("installments", value); }
         }
 
+        public int? InvoiceReminder
+        {
+            get { return GetAttribute<int?>("invoice_reminder"); }
+            set { SetAttribute("invoice_reminder", value); }
+        }
+
         public Plan()
             : this(null)
         {
