@@ -216,5 +216,51 @@ namespace PagarMe.Tests
             Assert.IsNotEmpty((string)transactionEvent.Payload["old_status"]);
             Assert.IsNotEmpty((string)transactionEvent.Payload["desired_status"]);
         }
+
+        [Test]
+        public void RefuseReasonAcquirer()
+        {
+            var transaction = new Transaction();
+            transaction.Amount = 10000;
+            CardHash card = new CardHash()
+            {
+                CardNumber = "4242424242424242",
+                CardHolderName = "Aardvark Silva",
+                CardExpirationDate = "0140",
+                CardCvv = "614"
+            };
+            transaction.CardHash = card.Generate();
+            transaction.Customer = new Customer()
+            {
+                Name = "John Appleseed",
+                Email = "jhon@pagar.me",
+                DocumentNumber = "11111111111"
+            };
+            transaction.Save();
+            Assert.AreEqual(transaction.RefuseReason, "acquirer");
+        }
+
+        [Test]
+        public void RefuseReasonNull()
+        {
+            var transaction = new Transaction();
+            transaction.Amount = 10000;
+            CardHash card = new CardHash()
+            {
+                CardNumber = "4242424242424242",
+                CardHolderName = "Aardvark Silva",
+                CardExpirationDate = "0140",
+                CardCvv = "123"
+            };
+            transaction.CardHash = card.Generate();
+            transaction.Customer = new Customer()
+            {
+                Name = "John Appleseed",
+                Email = "jhon@pagar.me",
+                DocumentNumber = "11111111111"
+            };
+            transaction.Save();
+            Assert.Null(transaction.RefuseReason);
+        }
     }
 }
