@@ -140,6 +140,11 @@ namespace PagarMe
             set { SetAttribute("soft_descriptor", value); }
         }
 
+        public string RefuseReason
+        {
+            get { return GetAttribute<string>("refuse_reason"); }
+        }
+
         public string Tid
         {
             get { return GetAttribute<string>("tid"); }
