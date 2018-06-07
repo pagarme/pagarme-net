@@ -78,18 +78,18 @@ namespace PagarMe.Tests
             };
         }
 
-		public static Plan CreateTestPlan()
+	public static Plan CreateTestPlan()
+	{
+		return new Plan()
 		{
-			return new Plan()
-			{
-				Name = "Test Plan",
-				Days = 30,
-				TrialDays = 0,
-				Amount = 1099,
-				Color = "#787878",
-				PaymentMethods = new PaymentMethod[] { PaymentMethod.CreditCard }
-			};
-		}
+			Name = "Test Plan",
+			Days = 30,
+			TrialDays = 0,
+			Amount = 1099,
+			Color = "#787878",
+			PaymentMethods = new PaymentMethod[] { PaymentMethod.CreditCard }
+		};
+	}
 
         public static Plan CreateBoletoTestPlan()
         {
