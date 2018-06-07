@@ -149,7 +149,6 @@ namespace PagarMe
         public int[] SettledCharges
         {
             get { return GetAttribute<int[]>("settled_charges"); }
-
         }
 
         public Base.AbstractModel Metadata
