@@ -27,68 +27,59 @@ using System;
 
 namespace PagarMe
 {
-    public class SplitRule : Base.AbstractModel
-    {
-        public string Id
-        {
-            get
-            {
-                var result = GetAttribute<object>("id");
+	public class SplitRule : Base.AbstractModel
+	{
+		public string Id {
+			get {
+				var result = GetAttribute<object> ("id");
 
-                if (result == null)
-                    return null;
+				if (result == null)
+					return null;
+				
+				return result.ToString ();
+			}
+			set { SetAttribute ("id", value); }
+		}
 
-                return result.ToString();
-            }
-            set { SetAttribute("id", value); }
-        }
+		[Obsolete ("Recipient is deprecated, use acessors to RecipientId instead.")]
+		public Recipient Recipient {
+			get { return GetAttribute<Recipient> ("recipient"); }
+			set { SetAttribute ("recipient", value); }
+		}
 
-        [Obsolete("Recipient is deprecated, use acessors to RecipientId instead.")]
-        public Recipient Recipient
-        {
-            get { return GetAttribute<Recipient>("recipient"); }
-            set { SetAttribute("recipient", value); }
-        }
+		public string RecipientId {
+			get { return GetAttribute<string> ("recipient_id"); }
+			set { SetAttribute ("recipient_id", value); }
+		}
 
-        public string RecipientId
-        {
-            get { return GetAttribute<string>("recipient_id"); }
-            set { SetAttribute("recipient_id", value); }
-        }
+		public bool ChargeProcessingFee {
+			get { return GetAttribute<bool> ("charge_processing_fee"); }
+			set { SetAttribute ("charge_processing_fee", value); }
+		}
 
-        public bool ChargeProcessingFee
-        {
-            get { return GetAttribute<bool>("charge_processing_fee"); }
-            set { SetAttribute("charge_processing_fee", value); }
-        }
+		public bool Liable {
+			get { return GetAttribute<bool> ("liable"); }
+			set { SetAttribute ("liable", value); }
+		}
 
-        public bool Liable
-        {
-            get { return GetAttribute<bool>("liable"); }
-            set { SetAttribute("liable", value); }
-        }
+		public int Percentage {
+			get { return GetAttribute<int> ("percentage"); }
+			set { SetAttribute ("percentage", value); }
+		}
 
-        public int Percentage
-        {
-            get { return GetAttribute<int>("percentage"); }
-            set { SetAttribute("percentage", value); }
-        }
+		public int Amount {
+			get { return GetAttribute<int> ("amount"); }
+			set { SetAttribute ("amount", value); }
+		}
 
-        public int Amount
-        {
-            get { return GetAttribute<int>("amount"); }
-            set { SetAttribute("amount", value); }
-        }
+		public SplitRule ()
+			: this (null)
+		{
+		}
 
-        public SplitRule()
-            : this(null)
-        {
-        }
-
-        public SplitRule(PagarMeService service)
-            : base(service)
-        {
-        }
-    }
+		public SplitRule (PagarMeService service)
+			: base (service)
+		{
+		}
+	}
 }
-

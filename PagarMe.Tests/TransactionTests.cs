@@ -10,6 +10,7 @@ namespace PagarMe.Tests
     [TestFixture]
     public class TransactionTests : PagarMeTestFixture
     {
+
         [Test]
         public void Charge()
         {
@@ -171,6 +172,42 @@ namespace PagarMe.Tests
             Payable payable = transaction.Payables.FindAll(new Payable()).First();
             Assert.IsTrue(payable.Amount.Equals(transaction.Amount));
             Assert.IsTrue(payable.Status.Equals(PayableStatus.Paid));
+        }
+
+        [Test]
+        public void TransactionWithSplitRule()
+        {
+            var transaction = CreateTestTransaction();
+            Recipient r1 = CreateRecipient();
+            Recipient r2 = CreateRecipient();
+            r1.Save();
+            r2.Save();
+            transaction.SplitRules = new SplitRule[] {
+                 new SplitRule() {
+                        Liable = true,
+                        Percentage = 10,
+                        ChargeProcessingFee = true,
+                        RecipientId = r1.Id
+                },
+                new SplitRule(){
+                        RecipientId = r2.Id,
+                        ChargeProcessingFee = true,
+                        Liable = true,
+                        Percentage = 90
+                    }
+            };
+            transaction.Save();
+            Assert.True(transaction.Status == TransactionStatus.Paid);
+            Assert.AreEqual(transaction.Amount, 1099);
+            Assert.AreEqual(transaction.SplitRules[1].RecipientId, r1.Id);
+            Assert.AreEqual(transaction.SplitRules[1].Percentage ,10);
+            Assert.True(transaction.SplitRules[1].ChargeProcessingFee);
+            Assert.True(transaction.SplitRules[1].Liable);
+            Assert.AreEqual(transaction.SplitRules[0].RecipientId , r2.Id);
+            Assert.AreEqual(transaction.SplitRules[0].Percentage, 90);
+            Assert.True(transaction.SplitRules[0].ChargeProcessingFee);
+            Assert.True(transaction.SplitRules[0].Liable);
+
         }
     }
 
