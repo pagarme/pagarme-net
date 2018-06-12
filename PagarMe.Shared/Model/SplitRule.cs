@@ -32,7 +32,6 @@ namespace PagarMe
 		public string Id {
 			get {
 				var result = GetAttribute<object> ("id");
-
 				if (result == null)
 					return null;
 				
