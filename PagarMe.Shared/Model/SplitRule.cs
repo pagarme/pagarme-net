@@ -34,7 +34,7 @@ namespace PagarMe
 				var result = GetAttribute<object> ("id");
 				if (result == null)
 					return null;
-				
+
 				return result.ToString ();
 			}
 			set { SetAttribute ("id", value); }
