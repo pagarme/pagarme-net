@@ -27,15 +27,14 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Serialization
-{
-    public class PagarMeContractResolver : DefaultContractResolver
-    {
+namespace Serialization {
+    public class PagarMeContractResolver : DefaultContractResolver {
+#if (!NETSTANDARD && !NETCOREAPP1_1)
         public PagarMeContractResolver()
             : base(false)
         {
         }
-
+#endif
     }
 }
 

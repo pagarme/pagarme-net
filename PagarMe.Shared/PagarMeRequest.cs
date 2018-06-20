@@ -31,7 +31,6 @@ using System.Threading;
 using System.Reflection;
 using System.Net;
 using System.Linq;
-
 #if HAS_ASYNC
 using System.Threading.Tasks;
 #endif
@@ -69,9 +68,10 @@ namespace PagarMe
 
             Query = new List<Tuple<string, string>>();
             Body = "{}";
+            if(method=="GET") Body = null;
         }
 
-        #if !PCL
+#if (!PCL && !NETSTANDARD && !NETCOREAPP1_1)
         public PagarMeResponse Execute()
         {
             HttpWebResponse response;
@@ -113,6 +113,7 @@ namespace PagarMe
             else
                 return new PagarMeResponse(response.StatusCode, body);
         }
+      
         #else
         public PagarMeResponse Execute()
         {
@@ -124,7 +125,7 @@ namespace PagarMe
                 throw task.Exception;
             else
                 return task.Result;
-        }
+            }
         #endif
 
         public async Task<PagarMeResponse> ExecuteAsync()
@@ -137,12 +138,12 @@ namespace PagarMe
             {
                 var encoding = new UTF8Encoding(false);
 
-                #if !PCL
+                #if (!PCL && !NETSTANDARD && !NETCOREAPP1_1)
                 request.ContentLength = encoding.GetByteCount(Body);
                 #else
                 request.Headers["Content-Length"] = encoding.GetByteCount(Body).ToString();
                 #endif
-
+                
                 using (var stream = await Task<Stream>.Factory.FromAsync(request.BeginGetRequestStream, request.EndGetRequestStream, null))
                 using (var writer = new StreamWriter(stream, encoding))
                     writer.Write(Body);
@@ -177,7 +178,7 @@ namespace PagarMe
         {
             HttpWebRequest request = WebRequest.CreateHttp(GetRequestUri());
 
-            #if !PCL
+            #if (!PCL && ! NETSTANDARD && !NETCOREAPP1_1)
             request.UserAgent = "pagarme-net/" + typeof(PagarMeRequest).Assembly.GetName().Version.ToString();
             #else
             request.Headers["User-Agent"] = "pagarme-net/" + typeof(PagarMeRequest).GetTypeInfo().Assembly.GetName().Version.ToString();

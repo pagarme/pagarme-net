@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PagarMe.Shared", "PagarMe.Shared\PagarMe.Shared.shproj", "{A1E35F76-C32B-4490-BB52-282A27E0A37D}"
 EndProject
@@ -20,6 +20,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		PagarMe.nuspec = PagarMe.nuspec
 		PagarMe.Pcl.nuspec = PagarMe.Pcl.nuspec
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreTest", "CoreTest\CoreTest.csproj", "{08C03261-65DA-490A-B0B0-2BF01AE9C1C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PagarMe.Core", "PagarMe.Core\PagarMe.Core.csproj", "{4854D376-B62C-4AA8-80B2-950A32961C75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PagarMe.Standard", "PagarMe.Standard\PagarMe.Standard.csproj", "{2FFABE6C-8F43-4F69-8964-926933DBA29B}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -52,6 +58,18 @@ Global
 		{2EFDFE61-6D2E-41E5-B833-82564D3E8158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2EFDFE61-6D2E-41E5-B833-82564D3E8158}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EFDFE61-6D2E-41E5-B833-82564D3E8158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08C03261-65DA-490A-B0B0-2BF01AE9C1C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08C03261-65DA-490A-B0B0-2BF01AE9C1C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08C03261-65DA-490A-B0B0-2BF01AE9C1C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08C03261-65DA-490A-B0B0-2BF01AE9C1C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4854D376-B62C-4AA8-80B2-950A32961C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4854D376-B62C-4AA8-80B2-950A32961C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4854D376-B62C-4AA8-80B2-950A32961C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4854D376-B62C-4AA8-80B2-950A32961C75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FFABE6C-8F43-4F69-8964-926933DBA29B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FFABE6C-8F43-4F69-8964-926933DBA29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FFABE6C-8F43-4F69-8964-926933DBA29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FFABE6C-8F43-4F69-8964-926933DBA29B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
