@@ -74,44 +74,47 @@ namespace PagarMe
         #if !PCL
         public PagarMeResponse Execute()
         {
-            HttpWebResponse response;
-            var request = GetRequest();
-            bool isError = false;
+			return TLS.Instance.UseTLS12IfAvailable(() =>
+			{
+				HttpWebResponse response;
+				var request = GetRequest();
+				bool isError = false;
 
-            if (Body != null && (Method == "POST" || Method == "PUT"))
-            {
-                var encoding = new UTF8Encoding(false);
+				if (Body != null && (Method == "POST" || Method == "PUT"))
+				{
+					var encoding = new UTF8Encoding(false);
 
-                request.ContentLength = encoding.GetByteCount(Body);
+					request.ContentLength = encoding.GetByteCount(Body);
 
-                using (var stream = request.GetRequestStream())
-                using (var writer = new StreamWriter(stream, encoding))
-                    writer.Write(Body);
-            }
+					using (var stream = request.GetRequestStream())
+					using (var writer = new StreamWriter(stream, encoding))
+						writer.Write(Body);
+				}
 
-            try
-            {
-                response = (HttpWebResponse)request.GetResponse();
-            }
-            catch (WebException e)
-            {
-                isError = true;
-                response = (HttpWebResponse)e.Response;
+				try
+				{
+					response = (HttpWebResponse)request.GetResponse();
+				}
+				catch (WebException e)
+				{
+					isError = true;
+					response = (HttpWebResponse)e.Response;
 
-                if (response == null)
-                    throw e;
-            }
+					if (response == null)
+						throw e;
+				}
 
-            var body = "";
+				var body = "";
 
-            using (var stream = response.GetResponseStream())
-            using (var reader = new StreamReader(stream, Encoding.UTF8))
-                body = reader.ReadToEnd();
+				using (var stream = response.GetResponseStream())
+				using (var reader = new StreamReader(stream, Encoding.UTF8))
+					body = reader.ReadToEnd();
 
-            if (isError)
-                throw new PagarMeException(new PagarMeError(response.StatusCode, body));
-            else
-                return new PagarMeResponse(response.StatusCode, body);
+				if (isError)
+					throw new PagarMeException(new PagarMeError(response.StatusCode, body));
+				else
+					return new PagarMeResponse(response.StatusCode, body);
+			});
         }
         #else
         public PagarMeResponse Execute()
@@ -129,48 +132,51 @@ namespace PagarMe
 
         public async Task<PagarMeResponse> ExecuteAsync()
         {
-            HttpWebResponse response;
-            var request = GetRequest();
-            bool isError = false;
+	        return await TLS.Instance.UseTLS12IfAvailable(async () =>
+	        {
+		        HttpWebResponse response;
+		        var request = GetRequest();
+		        bool isError = false;
 
-            if (Body != null)
-            {
-                var encoding = new UTF8Encoding(false);
+		        if (Body != null)
+		        {
+			        var encoding = new UTF8Encoding(false);
 
-                #if !PCL
-                request.ContentLength = encoding.GetByteCount(Body);
-                #else
-                request.Headers["Content-Length"] = encoding.GetByteCount(Body).ToString();
-                #endif
+					#if !PCL
+			        request.ContentLength = encoding.GetByteCount(Body);
+					#else
+					request.Headers["Content-Length"] = encoding.GetByteCount(Body).ToString();
+					#endif
 
-                using (var stream = await Task<Stream>.Factory.FromAsync(request.BeginGetRequestStream, request.EndGetRequestStream, null))
-                using (var writer = new StreamWriter(stream, encoding))
-                    writer.Write(Body);
-            }
+			        using (var stream = await Task<Stream>.Factory.FromAsync(request.BeginGetRequestStream, request.EndGetRequestStream, null))
+			        using (var writer = new StreamWriter(stream, encoding))
+				        writer.Write(Body);
+		        }
 
-            try
-            {
-                response = (HttpWebResponse)(await Task<WebResponse>.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null));
-            }
-            catch (WebException e)
-            {
-                isError = true;
-                response = (HttpWebResponse)e.Response;
+		        try
+		        {
+			        response = (HttpWebResponse)(await Task<WebResponse>.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null));
+		        }
+		        catch (WebException e)
+		        {
+			        isError = true;
+			        response = (HttpWebResponse)e.Response;
 
-                if (response == null)
-                    throw e;
-            }
+			        if (response == null)
+				        throw e;
+		        }
 
-            var body = "";
+		        var body = "";
 
-            using (var stream = response.GetResponseStream())
-            using (var reader = new StreamReader(stream, Encoding.UTF8))
-                body = await reader.ReadToEndAsync();
+		        using (var stream = response.GetResponseStream())
+		        using (var reader = new StreamReader(stream, Encoding.UTF8))
+			        body = await reader.ReadToEndAsync();
 
-            if (isError)
-                throw new PagarMeException(new PagarMeError(response.StatusCode, body));
-            else
-                return new PagarMeResponse(response.StatusCode, body);
+		        if (isError)
+			        throw new PagarMeException(new PagarMeError(response.StatusCode, body));
+		        else
+			        return new PagarMeResponse(response.StatusCode, body);
+	        });
         }
 
         private HttpWebRequest GetRequest()
