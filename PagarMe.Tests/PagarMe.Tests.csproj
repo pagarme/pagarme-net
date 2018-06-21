@@ -43,6 +43,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TLSTests.cs" />
     <Compile Include="CreditCardTests.cs" />
     <Compile Include="PagarMeTestFixture.cs" />
     <Compile Include="PayableTest.cs" />
