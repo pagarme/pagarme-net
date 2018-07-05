@@ -145,14 +145,24 @@ namespace PagarMe
             get { return GetAttribute<string>("refuse_reason"); }
         }
 
+        public object tid
+        {
+            get { return GetAttribute<object>("tid"); }
+        }
+
         public string Tid
         {
-            get { return GetAttribute<string>("tid"); }
+            get { return tid.ToString(); }
+        }
+
+        public object nsu
+        {
+            get { return GetAttribute<object>("nsu"); }
         }
 
         public string Nsu
         {
-            get { return GetAttribute<string>("nsu"); }
+            get { return nsu.ToString(); }
         }
 
         public int Amount
