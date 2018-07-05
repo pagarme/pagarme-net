@@ -145,7 +145,7 @@ namespace PagarMe
             get { return GetAttribute<string>("refuse_reason"); }
         }
 
-        public object tid
+        private object tid
         {
             get { return GetAttribute<object>("tid"); }
         }
@@ -155,7 +155,7 @@ namespace PagarMe
             get { return tid.ToString(); }
         }
 
-        public object nsu
+        private object nsu
         {
             get { return GetAttribute<object>("nsu"); }
         }
