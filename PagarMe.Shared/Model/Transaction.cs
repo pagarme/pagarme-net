@@ -26,6 +26,9 @@
 using PagarMe.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
+using PagarMe.Base;
 
 namespace PagarMe
 {
@@ -421,6 +424,24 @@ namespace PagarMe
                 request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString().ToLower()));
 
             ExecuteSelfRequest(request);
+        }
+
+        public void Refund(int? amount, SplitRule[] split_rules = null, BankAccount bank = null){
+
+            var request = CreateRequest("POST", "/refund");
+
+            if(bank != null){
+                request.Query = BuildQueryForKeys("bank_account", bank.ToDictionary(Base.SerializationType.Plain));
+            }
+
+            request.Body = JsonConvert.SerializeObject(split_rules.Select(s => s.ToDictionary(SerializationType.Plain)).ToList());
+
+            //request.Query.Add(new Tuple<string, string>("split_rules",JsonConvert.SerializeObject(split_rules.Select(s => s.ToDictionary(SerializationType.Plain)).ToList())));
+
+            request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
+
+            ExecuteSelfRequest(request);
+
         }
 
 		public async void RefundAsync(int? amount = null, bool asyncRefund = true)
