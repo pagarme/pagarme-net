@@ -426,7 +426,7 @@ namespace PagarMe
             ExecuteSelfRequest(request);
         }
 
-        public void Refund(int? amount, SplitRule[] split_rules = null, BankAccount bank = null){
+        public void Refund(int? amount, SplitRule[] split_rules, BankAccount bank = null){
 
             var request = CreateRequest("POST", "/refund");
 
@@ -435,8 +435,6 @@ namespace PagarMe
             }
 
             request.Body = JsonConvert.SerializeObject(split_rules.Select(s => s.ToDictionary(SerializationType.Plain)).ToList());
-
-            //request.Query.Add(new Tuple<string, string>("split_rules",JsonConvert.SerializeObject(split_rules.Select(s => s.ToDictionary(SerializationType.Plain)).ToList())));
 
             request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
 
