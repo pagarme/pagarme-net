@@ -299,5 +299,95 @@ namespace PagarMe.Tests
             transaction.Save();
             Assert.Null(transaction.RefuseReason);
         }
+
+        [Test]
+        public void RefundWithSplit()
+        {
+            var transaction = CreateTestTransaction();
+            Recipient r1 = CreateRecipient();
+            Recipient r2 = CreateRecipient();
+            r1.Save();
+            r2.Save();
+            transaction.SplitRules = new SplitRule[]{
+                new SplitRule(){
+                    Liable = true,
+                    Percentage = 50,
+                    ChargeProcessingFee = true,
+                    RecipientId = r1.Id
+                },
+                new SplitRule(){
+                    Liable = true,
+                    Percentage = 50,
+                    ChargeProcessingFee = true,
+                    RecipientId = r2.Id
+                }
+            };
+            transaction.Save();
+            var splitRules = new SplitRule[]{
+                new SplitRule(){
+                    Id = transaction.SplitRules[0].Id,
+                    Amount = 200,
+                    RecipientId = transaction.SplitRules[0].RecipientId,
+                    ChargeProcessingFee = true
+                },
+                new SplitRule(){
+                    Id = transaction.SplitRules[1].Id,
+                    Amount = 200,
+                    RecipientId = transaction.SplitRules[1].RecipientId,
+                    ChargeProcessingFee = true
+                }
+            };
+            transaction.RefundWithSplit(400,splitRules);
+            List<Payable> payables = transaction.Payables.FindAll(new Payable()).ToList();
+            Assert.AreEqual(payables.ElementAt(0).Amount,-200);
+            Assert.AreEqual(payables.ElementAt(1).Amount, -200);
+        }
+
+        [Test]
+        public void RefundWithSplitBoleto(){
+            var transaction = CreateTestBoletoTransaction();
+            Recipient r1 = CreateRecipient();
+            Recipient r2 = CreateRecipient();
+            r1.Save();
+            r2.Save();
+            transaction.SplitRules = new SplitRule[]{
+                new SplitRule(){
+                    Liable = true,
+                    Percentage = 50,
+                    ChargeProcessingFee = true,
+                    RecipientId = r1.Id
+                },
+                new SplitRule(){
+                    Liable = true,
+                    Percentage = 50,
+                    ChargeProcessingFee = true,
+                    RecipientId = r2.Id
+                }
+            };
+            transaction.Save();
+            transaction.Status = TransactionStatus.Paid;
+            transaction.Save();
+            var splitRules = new SplitRule[]{
+                new SplitRule(){
+                    Id = transaction.SplitRules[0].Id,
+                    Amount = 200,
+                    RecipientId = transaction.SplitRules[0].RecipientId,
+                    ChargeProcessingFee = true
+                },
+                new SplitRule(){
+                    Id = transaction.SplitRules[1].Id,
+                    Amount = 200,
+                    RecipientId = transaction.SplitRules[1].RecipientId,
+                    ChargeProcessingFee = true
+                }
+            };
+            BankAccount ba = CreateTestBankAccount();
+            ba.Save();
+            transaction.RefundWithSplit(400, splitRules,ba);
+            List<Payable> payables = transaction.Payables.FindAll(new Payable()).ToList();
+            Assert.AreEqual(payables.ElementAt(0).Amount, -200);
+            Assert.AreEqual(payables.ElementAt(1).Amount, -200);
+            Assert.AreEqual(transaction.Status,TransactionStatus.PendingRefund);
+        }
     }
 }

@@ -426,7 +426,7 @@ namespace PagarMe
             ExecuteSelfRequest(request);
         }
 
-        public void Refund(int? amount, SplitRule[] split_rules, BankAccount bank = null){
+        public void RefundWithSplit(int? amount, SplitRule[] split_rules, BankAccount bank = null){
 
             var request = CreateRequest("POST", "/refund");
 
