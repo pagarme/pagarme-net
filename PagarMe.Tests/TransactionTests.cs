@@ -67,6 +67,7 @@ namespace PagarMe.Tests
             dTransaction.capture_method = "emv";
             dTransaction.card_track_2 = "4242424242424242%3D51046070000091611111";
             dTransaction.card_emv_data = "9A031708119C01009F02060000000001009F10200FA501A030F8000000000000000000000F0000000000000000000000000000009F1A0200769F1E0830303030303030309F2608DF91B6A4D449C9819F3303E0F0E89F360202889F370411859D5F9F2701809F34034203005F2A0209868202580095056280046000";
+            dTransaction.local_time = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.ffffZ");
             dTransaction.Save();
 
             Assert.IsNotNull(dTransaction.CardEmvResponse);

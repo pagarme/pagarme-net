@@ -287,6 +287,12 @@ namespace PagarMe
             set { SetAttribute("async", value); }
         }
 
+        public String LocalTime
+        {
+          get { return GetAttribute<String>("local_time"); }
+          set { SetAttribute("local_time", value); }
+        }
+
         public Base.AbstractModel Metadata
         {
             get { return GetAttribute<Base.AbstractModel>("metadata"); }
@@ -359,7 +365,7 @@ namespace PagarMe
         public Base.ModelCollection<Postback> Postbacks
         {
             get
-            { 
+            {
                 if (Id == null)
                 {
                 throw new InvalidOperationException("Transaction must have an Id in order to fetch events");
@@ -419,7 +425,7 @@ namespace PagarMe
 
             if (amount.HasValue)
                 request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
-			
+
             if(!asyncRefund)
                 request.Query.Add(new Tuple<string, string>("async", asyncRefund.ToString().ToLower()));
 
@@ -478,4 +484,3 @@ namespace PagarMe
         }
     }
 }
-
