@@ -287,9 +287,9 @@ namespace PagarMe
             set { SetAttribute("async", value); }
         }
 
-        public DateTime? LocalTime
+        public String LocalTime
         {
-          get { return GetAttribute<DateTime?>("local_time"); }
+          get { return GetAttribute<String>("local_time"); }
           set { SetAttribute("local_time", value); }
         }
 
