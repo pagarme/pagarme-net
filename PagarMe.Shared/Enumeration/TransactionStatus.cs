@@ -32,8 +32,8 @@ namespace PagarMe
     {
         [Base.EnumValue("")]
         None,
-        [Base.EnumValue("processing")]
-        Processing,
+        [Base.EnumValue("chargedback")]
+        Chargedback,
         [Base.EnumValue("refused")]
         Refused,
         [Base.EnumValue("authorized")]
@@ -45,7 +45,11 @@ namespace PagarMe
         [Base.EnumValue("pending_refund")]
         PendingRefund,
         [Base.EnumValue("refunded")]
-        Refunded
+        Refunded,
+        [Base.EnumValue("processing")]
+        Processing,
+        [Base.EnumValue("pending_review")]
+        PendingReview
     }
 }
 
