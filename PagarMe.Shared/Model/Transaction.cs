@@ -41,10 +41,16 @@ namespace PagarMe
 
         protected override string Endpoint { get { return "/transactions"; } }
 
+        [Obsolete("Subscriptions is no longer returned, use SubscriptionId instead.")]
         public Subscription Subscription
         {
             get { return GetAttribute<Subscription>("subscription"); }
             set { SetAttribute("subscription", value); }
+        }
+
+        public int SubscriptionId
+        {
+            get { return GetAttribute<int>("subscription_id") ; }
         }
 
         public Card Card
