@@ -38,6 +38,7 @@ namespace PagarMe
         private Base.ModelCollection<Payable> _payables;
         private Base.ModelCollection<AntifraudAnalysis> _antifraud;
         private Base.ModelCollection<Postback> _postbacks;
+        private Base.ModelCollection<Operation> _operations;
 
         protected override string Endpoint { get { return "/transactions"; } }
 
@@ -382,6 +383,17 @@ namespace PagarMe
             }
         }
 
+        public Base.ModelCollection<Operation> Operations
+        {
+            get
+            {
+                if (Id == null)
+                {
+                    throw new InvalidOperationException("Transaction must have an Id in order to fetch operations");
+                }
+                return _operations ?? (_operations = new Base.ModelCollection<Operation>(Service, "/operations", Endpoint + "/" + Id));
+            }
+        }
         public Transaction() : this(null) {}
 
         public Transaction(PagarMeService service)
