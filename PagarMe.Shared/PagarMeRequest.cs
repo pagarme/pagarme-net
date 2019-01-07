@@ -30,6 +30,7 @@ using System.Text;
 using System.Threading;
 using System.Reflection;
 using System.Net;
+using System.Configuration;
 using System.Linq;
 
 #if HAS_ASYNC
@@ -207,6 +208,23 @@ namespace PagarMe
             uriBuilder.Query = BuildQueryString(Query.Concat(new[] { authKey }));
 
             return uriBuilder.Uri;
+        }
+
+        private string GetKey(string key){
+            switch(key){
+                case "api_key":
+                    return GetApiKey();
+                    break;
+                case "encryption_key":
+                    return GetEncryptionKey();
+                    break;
+                default:
+                    return null;
+            }
+        }
+
+        private string GetApiKey(){
+            return _service.ApiKey == null ? (string)new AppSettingsReader().GetValue("api_key", typeof(string)) : _service.ApiKey;
         }
     }
 }
