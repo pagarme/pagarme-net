@@ -158,6 +158,12 @@ namespace PagarMe
             set { SetAttribute("split_rules", value); }
         }
 
+        public int? Amount
+        {
+            get { return GetAttribute<int>("amount"); }
+            set { SetAttribute("amount", value); }
+        }
+
         public Subscription()
             : this(null)
         {
