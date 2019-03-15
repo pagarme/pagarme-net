@@ -20,6 +20,5 @@
 	</metadata>
 	<files>
 		<file src="PagarMe/bin/Release/PagarMe.dll"  target="lib/net45" />
-		<file src="PagarMe.Net40/bin/Release/PagarMe.dll"  target="lib/net40" />
 	</files>
 </package>
