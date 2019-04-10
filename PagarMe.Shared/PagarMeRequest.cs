@@ -27,7 +27,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+#if !PCL
 using System.Configuration;
+#endif 
 using System.Threading;
 using System.Reflection;
 using System.Net;
@@ -202,38 +204,22 @@ namespace PagarMe
             Tuple<string, string> authKey;
 
             if (UseEncryptionKey)
-                authKey = new Tuple<string, string>("encryption_key", GetKey("encryption_key"));
+                authKey = new Tuple<string, string>("encryption_key", GetKey("pagar.me_encryption_key", _service.EncryptionKey));
             else
-                authKey = new Tuple<string, string>("api_key", GetKey("api_key"));
+                authKey = new Tuple<string, string>("api_key", GetKey("pagar.me_api_key", _service.ApiKey));
 
             uriBuilder.Query = BuildQueryString(Query.Concat(new[] { authKey }));
 
             return uriBuilder.Uri;
         }
 
-        private string GetKey(string key)
+        private string GetKey(String name, String defaultValue)
         {
-            switch (key)
-            {
-                case "api_key":
-                    return GetApiKey();
-                    break;
-                case "encryption_key":
-                    return GetEncryptionKey();
-                    break;
-                default:
-                    return null;
-            }
-        }
-
-        private string GetApiKey()
-        {
-            return _service.ApiKey == null ? (string)new AppSettingsReader().GetValue("pagar.me_api_key", typeof(string)) : _service.ApiKey;
-        }
-
-        private string GetEncryptionKey()
-        {
-            return _service.EncryptionKey == null ? (string)new AppSettingsReader().GetValue("pagar.me_encryption_key", typeof(string)) : _service.EncryptionKey;
+#if PCL
+                return defaultValue;
+#else
+                return defaultValue ?? (string)new AppSettingsReader().GetValue(name, typeof(string));
+#endif
         }
     }
 }
