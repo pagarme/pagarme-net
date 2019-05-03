@@ -146,6 +146,11 @@ namespace PagarMe
             set { SetAttribute("payment_method", value); }
         }
 
+        public int[] SettledCharges
+        {
+            get { return GetAttribute<int[]>("settled_charges"); }
+        }
+
         public Base.AbstractModel Metadata
         {
             get { return GetAttribute<Base.AbstractModel>("metadata"); }
@@ -188,6 +193,16 @@ namespace PagarMe
             var request = CreateRequest("POST", "/cancel");
 
             await ExecuteSelfRequestAsync(request);
+        }
+
+        public void SettleCharges(int? chargesToSettle = null)
+        {
+            var request = CreateRequest("POST", "/settle_charge");
+
+            if (chargesToSettle.HasValue)
+                request.Query.Add(new Tuple<string, string>("charges", chargesToSettle.Value.ToString()));
+
+            ExecuteSelfRequest(request);
         }
 
         protected override void CoerceTypes()
