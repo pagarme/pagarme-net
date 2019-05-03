@@ -92,7 +92,21 @@ namespace PagarMe.Tests
 			};
 		}
 
-		public static BankAccount CreateTestBankAccount()
+        public static Plan CreateBoletoPlan()
+        {
+            return new Plan()
+            {
+                Name = "Test Plan",
+                Days = 30,
+                TrialDays = 0,
+                Amount = 1099,
+                Color = "#787878",
+                PaymentMethods = new PaymentMethod[] { PaymentMethod.Boleto },
+                InvoiceReminder = 3
+            };
+        }
+
+        public static BankAccount CreateTestBankAccount()
 		{
 			return new BankAccount()
 			{
@@ -116,7 +130,7 @@ namespace PagarMe.Tests
                 Build = false
             };
         }
-        
+
         public static BulkAnticipation CreateBulkAnticipationWithBuildTrue()
         {
             return new BulkAnticipation()
