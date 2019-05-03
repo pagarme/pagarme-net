@@ -90,7 +90,51 @@ namespace PagarMe.Tests
 			Assert.AreEqual(subscription.Status, SubscriptionStatus.Canceled);
 		}
 
-		[Test]
+        [Test]
+        public void SettleChargeWithoutParameters()
+        {
+            var plan = CreateBoletoPlan();
+            plan.Save();
+
+            var subscription = new Subscription
+            {
+                PaymentMethod = PaymentMethod.Boleto,
+                Customer = new Customer
+                {
+                    Email = "customer@pagar.me"
+                },
+                Plan = plan
+            };
+
+            subscription.Save();
+            subscription.SettleCharges();
+
+            Assert.AreEqual(subscription.Status, SubscriptionStatus.Paid);
+        }
+
+        [Test]
+        public void SettleChargeWithParameters()
+        {
+            var plan = CreateBoletoPlan();
+            plan.Save();
+
+            var subscription = new Subscription
+            {
+                PaymentMethod = PaymentMethod.Boleto,
+                Customer = new Customer
+                {
+                    Email = "customer@pagar.me"
+                },
+                Plan = plan
+            };
+
+            subscription.Save();
+            subscription.SettleCharges(2);
+
+            Assert.AreEqual(subscription.SettledCharges.Count(), 2);
+        }
+
+        [Test]
 		public void CreateSubscriptionWithSplitRules()
 		{
 			var plan = CreateTestPlan();
