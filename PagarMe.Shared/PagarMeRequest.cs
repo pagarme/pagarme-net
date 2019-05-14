@@ -29,7 +29,7 @@ using System.IO;
 using System.Text;
 #if !PCL
 using System.Configuration;
-#endif 
+#endif
 using System.Threading;
 using System.Reflection;
 using System.Net;
@@ -191,6 +191,7 @@ namespace PagarMe
             request.UserAgent = "pagarme-net/" + typeof(PagarMeRequest).Assembly.GetName().Version.ToString();
 #else
             request.Headers["User-Agent"] = "pagarme-net/" + typeof(PagarMeRequest).GetTypeInfo().Assembly.GetName().Version.ToString();
+            request.Headers["X-PagarMe-User-Agent"] = "pagarme-net/" + typeof(PagarMeRequest).GetTypeInfo().Assembly.GetName().Version.ToString();
 #endif
 
             request.ContentType = "application/json";
@@ -223,5 +224,3 @@ namespace PagarMe
         }
     }
 }
-
-
