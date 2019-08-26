@@ -30,6 +30,7 @@ namespace PagarMe
 {
     public class Subscription : Base.Model
     {
+        private Base.ModelCollection<Transaction> _transactions;
         protected override string Endpoint { get { return "/subscriptions"; } }
 
         public Transaction CurrentTransaction
@@ -188,6 +189,20 @@ namespace PagarMe
             var request = CreateRequest("POST", "/cancel");
 
             await ExecuteSelfRequestAsync(request);
+        }
+
+        public Base.ModelCollection<Transaction> Transactions
+        {
+            get
+            {
+                if (Id == null)
+                {
+                    throw new InvalidOperationException("Transaction must have an Id in order to fetch events");
+                }
+
+                return _transactions ?? (_transactions = new Base.ModelCollection<Transaction>(Service, "/transactions", Endpoint + "/" + Id));
+
+            }
         }
 
         protected override void CoerceTypes()
