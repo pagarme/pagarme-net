@@ -340,8 +340,13 @@ namespace PagarMe.Base
             if (!_dirtyKeys.TryGetValue(name, out result))
             if (!_keys.TryGetValue(name, out result))
                 return default(T);
-
-            return CastAttribute<T>(result);
+            try
+            { 
+                return CastAttribute<T>(result);
+            }
+            catch (NullReferenceException) {
+                return default(T);
+            }
         }
 
         protected void SetAttribute(string name, object value, bool dirty = true)
