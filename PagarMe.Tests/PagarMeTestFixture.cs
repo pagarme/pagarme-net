@@ -148,6 +148,11 @@ namespace PagarMe.Tests
             {
                 Amount = 1099,
                 PaymentMethod = PaymentMethod.Boleto,
+                Customer = new Customer
+                {
+                    Name = "Aadwark Silva",
+                    DocumentNumber = "64302475200"
+                },
                 PostbackUrl = "https://apitest.me/handlepostback"
             };
             transaction.Save();
@@ -179,8 +184,14 @@ namespace PagarMe.Tests
             return new Transaction
             {
                 Amount = 100000,
-                PaymentMethod = PaymentMethod.Boleto
+                PaymentMethod = PaymentMethod.Boleto,
+                Customer = new Customer
+                {
+                    Name = "Aadwark Silva",
+                    DocumentNumber = "64302475200"
+                }
             };
+
         }
 
         public static Transaction CreateTestCardTransactionWithInstallments()
@@ -200,6 +211,11 @@ namespace PagarMe.Tests
             {
                 Amount = 10000,
                 PaymentMethod = PaymentMethod.Boleto,
+                Customer = new Customer
+                {
+                    Name = "Aadwark Silva",
+                    DocumentNumber = "64302475200"
+                },
                 SplitRules = CreateSplitRule(recipient)
             };
         }
