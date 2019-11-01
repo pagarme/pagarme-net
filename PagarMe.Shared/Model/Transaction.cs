@@ -48,9 +48,20 @@ namespace PagarMe
             set { SetAttribute("subscription", value); }
         }
 
-        public int SubscriptionId
+        public int? SubscriptionId
         {
-            get { return GetAttribute<int>("subscription_id") ; }
+               get
+            {
+                try
+                {
+                    return GetAttribute<int>("subscription_id");
+
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
         }
 
         public Card Card
