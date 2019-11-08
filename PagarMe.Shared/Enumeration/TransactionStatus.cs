@@ -49,7 +49,9 @@ namespace PagarMe
         [Base.EnumValue("processing")]
         Processing,
         [Base.EnumValue("pending_review")]
-        PendingReview
+        PendingReview,
+        [Base.EnumValue("analyzing")]
+        Analyzing
     }
 }
 
