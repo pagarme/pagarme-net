@@ -61,13 +61,25 @@ namespace PagarMe
 			set { SetAttribute ("liable", value); }
 		}
 
-		public int Percentage {
-			get { return GetAttribute<int> ("percentage"); }
+		public int? Percentage {
+			get { 
+					try{
+						return GetAttribute<int> ("percentage"); 
+					} catch(Exception){
+						return null;
+					}
+				}
 			set { SetAttribute ("percentage", value); }
 		}
 
 		public int Amount {
-			get { return GetAttribute<int> ("amount"); }
+			get { 
+					try{
+						return GetAttribute<int> ("amount"); 
+					} catch (Exeception){
+						return null;
+					}
+				}
 			set { SetAttribute ("amount", value); }
 		}
 
