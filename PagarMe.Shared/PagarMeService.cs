@@ -45,6 +45,7 @@ namespace PagarMe
         public Base.ModelCollection<Recipient> Recipients { get; private set; }
         public Base.ModelCollection<BankAccount> BankAccounts { get; private set; }
         public Base.ModelCollection<Payable> Payables { get; private set; }
+        public Base.ModelCollection<Refund> Refunds { get; private set; }
 
         static PagarMeService()
         {
@@ -99,6 +100,7 @@ namespace PagarMe
             BankAccounts = new Base.ModelCollection<BankAccount>(this, "/bank_accounts");
             Payables = new Base.ModelCollection<Payable>(this, "/payables");
             Transfers = new Base.ModelCollection<Transfer>(this, "/transfers");
+            Refunds = new Base.ModelCollection<Refund>(this, "/refunds");
         }
     }
 }
