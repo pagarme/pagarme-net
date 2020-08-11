@@ -170,6 +170,8 @@ namespace PagarMe.Tests
             transaction.Status = TransactionStatus.Paid;
             transaction.Save();
 
+            System.Threading.Thread.Sleep(10000);
+
             Payable payable = transaction.Payables.FindAll(new Payable()).First();
             Assert.IsTrue(payable.Amount.Equals(transaction.Amount));
             Assert.IsTrue(payable.Status.Equals(PayableStatus.Paid));
@@ -327,21 +329,22 @@ namespace PagarMe.Tests
             var splitRules = new SplitRule[]{
                 new SplitRule(){
                     Id = transaction.SplitRules[0].Id,
-                    Amount = 200,
+                    Amount = 300,
                     RecipientId = transaction.SplitRules[0].RecipientId,
                     ChargeProcessingFee = true
                 },
                 new SplitRule(){
                     Id = transaction.SplitRules[1].Id,
-                    Amount = 200,
+                    Amount = 100,
                     RecipientId = transaction.SplitRules[1].RecipientId,
                     ChargeProcessingFee = true
                 }
             };
             transaction.RefundWithSplit(400,splitRules);
+            System.Threading.Thread.Sleep(10000);
             List<Payable> payables = transaction.Payables.FindAll(new Payable()).ToList();
-            Assert.AreEqual(payables.ElementAt(0).Amount,-200);
-            Assert.AreEqual(payables.ElementAt(1).Amount, -200);
+            Assert.AreEqual(payables.ElementAt(0).Amount,-300);
+            Assert.AreEqual(payables.ElementAt(1).Amount, -100);
         }
 
         [Test]
@@ -371,13 +374,13 @@ namespace PagarMe.Tests
             var splitRules = new SplitRule[]{
                 new SplitRule(){
                     Id = transaction.SplitRules[0].Id,
-                    Amount = 200,
+                    Amount = 300,
                     RecipientId = transaction.SplitRules[0].RecipientId,
                     ChargeProcessingFee = true
                 },
                 new SplitRule(){
                     Id = transaction.SplitRules[1].Id,
-                    Amount = 200,
+                    Amount = 100,
                     RecipientId = transaction.SplitRules[1].RecipientId,
                     ChargeProcessingFee = true
                 }
@@ -385,9 +388,10 @@ namespace PagarMe.Tests
             BankAccount ba = CreateTestBankAccount();
             ba.Save();
             transaction.RefundWithSplit(400, splitRules,ba);
+            System.Threading.Thread.Sleep(10000);
             List<Payable> payables = transaction.Payables.FindAll(new Payable()).ToList();
-            Assert.AreEqual(payables.ElementAt(0).Amount, -200);
-            Assert.AreEqual(payables.ElementAt(1).Amount, -200);
+            Assert.AreEqual(payables.ElementAt(0).Amount, -300);
+            Assert.AreEqual(payables.ElementAt(1).Amount, -100);
             Assert.AreEqual(transaction.Status,TransactionStatus.PendingRefund);
         }
     }
