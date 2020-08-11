@@ -54,6 +54,9 @@ namespace PagarMe.Tests
             transaction.Save();
             transaction.Status = TransactionStatus.Paid;
             transaction.Save();
+
+            System.Threading.Thread.Sleep(10000);
+
             BalanceOperation[] operation = recipient.Balance.Operations.FindAll(new BalanceOperation()).ToArray();
 
             Assert.IsNotNull(operation.First().MovementPayable);
