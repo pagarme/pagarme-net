@@ -457,7 +457,7 @@ namespace PagarMe
                 request.Query = BuildQueryForKeys("bank_account", bank.ToDictionary(Base.SerializationType.Plain));
             }
 
-            request.Body = JsonConvert.SerializeObject(split_rules.Select(s => s.ToDictionary(SerializationType.Plain)).ToList());
+            request.Body = "{\"split_rules\":" + JsonConvert.SerializeObject(split_rules.Select(s => s.ToDictionary(SerializationType.Plain)).ToList()) + "}";
 
             request.Query.Add(new Tuple<string, string>("amount", amount.Value.ToString()));
 
