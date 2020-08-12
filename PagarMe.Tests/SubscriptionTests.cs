@@ -192,6 +192,8 @@ namespace PagarMe.Tests
 
 			Assert.AreEqual(subscription.Status, SubscriptionStatus.Paid);
 
+			System.Threading.Thread.Sleep(10000);
+
 			List<Payable> subscriptionPayables = subscription.CurrentTransaction.Payables.FindAll(new Payable()).ToList();
 			List<Payable> firstRecipientPayable = subscriptionPayables.Where(x => x.RecipientId == recipient1.Id).ToList();
 			List<Payable> secondRecipientPayable = subscriptionPayables.Where(x => x.RecipientId == recipient2.Id).ToList();

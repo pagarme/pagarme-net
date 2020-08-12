@@ -19,6 +19,8 @@ namespace PagarMe.Tests
             transaction.Status = TransactionStatus.Paid;
             transaction.Save();
 
+            System.Threading.Thread.Sleep(10000);
+
             Payable payable = transaction.Payables.FindAll(new Payable()).First();
             Payable payableReturned = PagarMeService.GetDefaultService().Payables.Find(payable.Id);
 
