@@ -35,6 +35,7 @@ namespace PagarMe
         public static string DefaultApiEndpoint { get; set; }
         public static string DefaultApiKey { get; set; }
         public static string DefaultEncryptionKey { get; set; }
+        public static string XPagarMeVersion { get; set; }
 
         public Base.ModelCollection<Card> Cards { get; private set; }
         public Base.ModelCollection<Subscription> Subscriptions { get; private set; }
@@ -75,6 +76,11 @@ namespace PagarMe
 
         {
             get { return _apiEndpoint; }
+        }
+
+        public string PagarMeVersionHeader
+        {
+            get { return XPagarMeVersion; }
         }
 
         public PagarMeService(string apiKey, string encryptionKey)

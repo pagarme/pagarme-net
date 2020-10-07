@@ -187,11 +187,14 @@ namespace PagarMe
         private HttpWebRequest GetRequest()
         {
             HttpWebRequest request = WebRequest.CreateHttp(GetRequestUri());
+            if(!(GetVersionHeader() is null)) {
+                request.Headers["X-PagarMe-Version"] = GetVersionHeader();
+            }
 
 #if !PCL
             request.UserAgent = "pagarme-net/" + typeof(PagarMeRequest).Assembly.GetName().Version.ToString();
             request.Headers["X-PagarMe-User-Agent"] = "pagarme-net/" + typeof(PagarMeRequest).Assembly.GetName().Version.ToString();
-
+           
 #else
             request.Headers["User-Agent"] = "pagarme-net/" + typeof(PagarMeRequest).GetTypeInfo().Assembly.GetName().Version.ToString();
             request.Headers["X-PagarMe-User-Agent"] = "pagarme-net/" + typeof(PagarMeRequest).GetTypeInfo().Assembly.GetName().Version.ToString();
@@ -224,6 +227,10 @@ namespace PagarMe
 #else
                 return defaultValue ?? (string)new AppSettingsReader().GetValue(name, typeof(string));
 #endif
+        }
+
+        private string GetVersionHeader() {
+            return _service.PagarMeVersionHeader ?? _service.PagarMeVersionHeader;
         }
     }
 }
