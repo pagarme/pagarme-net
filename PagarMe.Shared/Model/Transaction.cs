@@ -340,6 +340,24 @@ namespace PagarMe
             set { SetAttribute("items", value); }
         }
 
+        public PixAditionalField[] PixAditionalField
+        {
+            get { return GetAttribute<PixAditionalField[]>("pix_additional_fields"); }
+            set { SetAttribute("pix_additional_fields", value); }
+        }
+
+        public DateTime? PixExpirationDate
+        {
+            get { return GetAttribute<DateTime?>("pix_expiration_date"); }
+            set { SetAttribute("pix_expiration_date", value); }
+        }
+
+        public string PixQrCode
+        {
+            get { return GetAttribute<string>("pix_qrcode"); }
+            set { SetAttribute("pix_qrcode", value); }
+        }
+
         public Base.ModelCollection<Event> Events
         {
             get
