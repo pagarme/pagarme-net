@@ -1,8 +1,8 @@
-﻿//
-// PaymentMethod.cs
+//
+// PixAditionalField.cs
 //
 // Author:
-//       Jonathan Lima <jonathan@pagar.me>
+//       Irwing Oliveira <irwing.oliveira@pagar.me>
 //
 // Copyright (c) 2015 Pagar.me
 //
@@ -24,20 +24,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Runtime.Serialization;
 
 namespace PagarMe
 {
-    public enum PaymentMethod
+    public class PixAditionalField : Base.AbstractModel
     {
-        [Base.EnumValue("credit_card")]
-        CreditCard,
-        [Base.EnumValue("boleto")]
-        Boleto,
-    	[Base.EnumValue("debit_card")]
-    	DebitCard,
-        [Base.EnumValue("pix")]
-        Pix
+        public string Name
+        {
+            get { return GetAttribute<string>("name"); }
+            set { SetAttribute("name", value); }
+        }
+
+        public int Value
+        {
+            get { return GetAttribute<int>("value"); }
+            set { SetAttribute("value", value); }
+        }
+
+        public PixAditionalField()
+            : this(null)
+        {
+        }
+
+        public PixAditionalField(PagarMeService service)
+            : base(service)
+        {
+        }
     }
 }
 
