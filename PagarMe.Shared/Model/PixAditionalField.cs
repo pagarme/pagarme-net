@@ -1,4 +1,4 @@
-//
+﻿//
 // PixAditionalField.cs
 //
 // Author:
@@ -35,9 +35,9 @@ namespace PagarMe
             set { SetAttribute("name", value); }
         }
 
-        public int Value
+        public string Value
         {
-            get { return GetAttribute<int>("value"); }
+            get { return GetAttribute<string>("value"); }
             set { SetAttribute("value", value); }
         }
 

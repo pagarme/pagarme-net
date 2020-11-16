@@ -340,7 +340,7 @@ namespace PagarMe
             set { SetAttribute("items", value); }
         }
 
-        public PixAditionalField[] PixAditionalField
+        public PixAditionalField[] PixAditionalFields
         {
             get { return GetAttribute<PixAditionalField[]>("pix_additional_fields"); }
             set { SetAttribute("pix_additional_fields", value); }
@@ -354,8 +354,7 @@ namespace PagarMe
 
         public string PixQrCode
         {
-            get { return GetAttribute<string>("pix_qrcode"); }
-            set { SetAttribute("pix_qrcode", value); }
+            get { return GetAttribute<string>("pix_qr_code"); }
         }
 
         public Base.ModelCollection<Event> Events
