@@ -33,7 +33,9 @@ namespace PagarMe
         [Base.EnumValue("cpf")]
         Cpf,
         [Base.EnumValue("cnpj")]
-        Cnpj
+        Cnpj,
+        [Base.EnumValue("passport")]
+        Passport
     }
 }
 
