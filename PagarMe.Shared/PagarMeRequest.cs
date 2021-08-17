@@ -224,8 +224,10 @@ namespace PagarMe
         {
 #if PCL
                 return defaultValue;
+#elif STANDARD
+            return defaultValue;
 #else
-                return defaultValue ?? (string)new AppSettingsReader().GetValue(name, typeof(string));
+            return defaultValue ?? (string)new AppSettingsReader().GetValue(name, typeof(string));
 #endif
         }
 
