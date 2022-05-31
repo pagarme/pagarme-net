@@ -32,7 +32,7 @@ namespace Serialization
     public class PagarMeContractResolver : DefaultContractResolver
     {
         public PagarMeContractResolver()
-            : base(false)
+            : base()
         {
         }
 

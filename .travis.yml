@@ -1,9 +1,0 @@
-language: csharp
-solution: PagarMe.sln
-install:
- - sudo apt-get install -y gtk-sharp2 nunit-console
- - nuget restore PagarMe.sln
-script:
- - xbuild PagarMe.sln
- - nunit-console ./PagarMe.Tests/bin/Debug/PagarMe.Tests.dll
-
