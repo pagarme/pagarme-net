@@ -285,6 +285,16 @@ namespace PagarMe
             get { return GetAttribute<string>("boleto_barcode"); }
             set { SetAttribute("boleto_barcode", value); }
         }
+        public BoletoInterest BoletoInterest
+        {
+            get { return GetAttribute<BoletoInterest>("boleto_interest"); }
+            set { SetAttribute("boleto_interest", value); }
+        }
+        public BoletoFine BoletoFine
+        {
+            get { return GetAttribute<BoletoFine>("boleto_fine"); }
+            set { SetAttribute("boleto_fine", value); }
+        }
 
         public string Referer
         {
