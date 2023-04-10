@@ -34,6 +34,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\AntifraudAnalysis.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Balance.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\BankAccount.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\BoletoFine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\BoletoInterest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\BulkAnticipation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\BulkAnticipationLimit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Card.cs" />
