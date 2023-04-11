@@ -1,4 +1,4 @@
-﻿namespace PagarMe.Model
+﻿namespace PagarMe
 {
     public class BoletoInterest : Base.AbstractModel
     {
