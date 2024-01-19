@@ -40,7 +40,7 @@ namespace PagarMe.Tests
             
             foreach(var pay in payables)
             {
-                Assert.IsTrue(pay.TransactionId.Equals(int.Parse(transaction.Id)));
+                Assert.IsTrue(pay.TransactionId.Equals(long.Parse(transaction.Id)));
             }
         }
 
