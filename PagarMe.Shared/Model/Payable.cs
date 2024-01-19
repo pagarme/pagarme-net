@@ -46,9 +46,9 @@ namespace PagarMe
             set { SetAttribute("installment",value); }
         }
 
-        public int TransactionId
+        public long TransactionId
         {
-            get { return GetAttribute<int>("transaction_id"); }
+            get { return GetAttribute<long>("transaction_id"); }
             set { SetAttribute("transaction_id", value); }
         }
 
