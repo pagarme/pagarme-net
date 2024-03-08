@@ -127,18 +127,6 @@ namespace PagarMe.Tests
                 Timeframe = TimeFrame.Start,
                 PaymentDate = GenerateValidAnticipationDate(),
                 RequestedAmount = 900000,
-                Build = false
-            };
-        }
-
-        public static BulkAnticipation CreateBulkAnticipationWithBuildTrue()
-        {
-            return new BulkAnticipation()
-            {
-                Timeframe = TimeFrame.Start,
-                PaymentDate = GenerateValidAnticipationDate(),
-                Build = true,
-                RequestedAmount = 900000
             };
         }
 

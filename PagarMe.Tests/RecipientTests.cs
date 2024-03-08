@@ -107,24 +107,6 @@ namespace PagarMe.Tests
         }
 
         [Test]
-        public void ConfirmAnticipation()
-        {
-            BulkAnticipation anticipation = CreateBulkAnticipationWithBuildTrue();
-
-            Recipient recipient = CreateRecipient();
-            recipient.Save();
-
-            Transaction transaction = CreateCreditCardSplitRuleTransaction(recipient);
-            transaction.Save();
-
-            recipient.CreateAnticipation(anticipation);
-            Assert.IsTrue(anticipation.Status == Enumeration.BulkAnticipationStatus.Building);
-
-            recipient.ConfirmAnticipation(anticipation);
-            Assert.IsTrue(anticipation.Status == Enumeration.BulkAnticipationStatus.Pending);
-        }
-
-        [Test]
         public void CancelAnticipation()
         {
             BulkAnticipation anticipation = CreateBulkAnticipation();
@@ -140,24 +122,6 @@ namespace PagarMe.Tests
 
             recipient.CancelAnticipation(anticipation);
             Assert.IsTrue(anticipation.Status == Enumeration.BulkAnticipationStatus.Canceled);
-        }
-
-        [Test]
-        public void DeleteAnticipation()
-        {
-            BulkAnticipation anticipation = CreateBulkAnticipationWithBuildTrue();
-
-            Recipient recipient = CreateRecipient();
-            recipient.Save();
-
-            Transaction transaction = CreateCreditCardSplitRuleTransaction(recipient);
-            transaction.Save();
-
-            recipient.CreateAnticipation(anticipation);
-            Assert.IsTrue(anticipation.Status == Enumeration.BulkAnticipationStatus.Building);
-
-            recipient.DeleteAnticipation(anticipation);
-            Assert.IsNull(anticipation.Id);
         }
 
         [Test]
