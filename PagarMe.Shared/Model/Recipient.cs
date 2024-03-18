@@ -142,28 +142,12 @@ namespace PagarMe
             anticipation.LoadFrom(response.Body);
         }
 
-        public void ConfirmAnticipation(BulkAnticipation anticipation)
-        {
-            var request = CreateRequest("POST", "/bulk_anticipations/" + anticipation.Id + "/" + "confirm");
-            var response = request.Execute();
-
-            anticipation.LoadFrom(response.Body);
-        }
-
         public void CancelAnticipation(BulkAnticipation anticipation)
         {
             var request = CreateRequest("POST", "/bulk_anticipations/" + anticipation.Id + "/" + "cancel");
             var response = request.Execute();
 
             anticipation.LoadFrom(response.Body);
-        }
-
-        public void DeleteAnticipation(BulkAnticipation anticipation)
-        {
-            var request = CreateRequest("DELETE", "/bulk_anticipations/" + anticipation.Id);
-            request.Execute();
-
-            anticipation.LoadFrom("{}");
         }
 
         public Base.ModelCollection<BulkAnticipation> Anticipations
