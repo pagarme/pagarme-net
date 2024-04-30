@@ -16,10 +16,124 @@ namespace PagarMe.Tests
 
         static PagarMeTestFixture ()
         {
-            PagarMeService.DefaultApiKey = "ak_test_RBORKsHflgcrO7gISMyhatMx8UyiJY";
-            PagarMeService.DefaultEncryptionKey = "ek_test_Ajej5CakM8QXGnA2lWX3AarwLWqspL";
+            PagarMeService.DefaultApiKey = "sk_test_b9ec56a341db45c5a38d8aac24717020";
+            PagarMeService.DefaultEncryptionKey = "ek_test_M712AmOsMTWH0NwI3ttKLNpYLwyNzQ";
         }
 
+        protected static string GenerateSomeEmail() => "some@email.com";
+        private static string GenerateSomeSiteUrl() => "http://www.some-site.com";
+
+        protected static RegisterInformation GenerateRegisterInformationTypeIndividual(string documentNumber)
+        {
+            return new RegisterInformation
+            {
+                Type = "individual",
+                DocumentNumber = documentNumber,
+                Name = Guid.NewGuid().ToString(),
+                SiteUrl = GenerateSomeSiteUrl(),
+                Email = GenerateSomeEmail(),
+                MotherName = Guid.NewGuid().ToString(),
+                Birthdate = "01/01/0001",
+                MonthlyIncome = "1000",
+                ProfessionalOccupation = Guid.NewGuid().ToString(),
+                Address = new RegisterInformationAddress
+                {
+                    Street = Guid.NewGuid().ToString(),
+                    Complementary = Guid.NewGuid().ToString(),
+                    StreetNumber = Guid.NewGuid().ToString(),
+                    Neighborhood = Guid.NewGuid().ToString(),
+                    City = Guid.NewGuid().ToString(),
+                    State = Guid.NewGuid().ToString(),
+                    Zipcode = Guid.NewGuid().ToString(),
+                    ReferencePoint = Guid.NewGuid().ToString(),
+                },
+                PhoneNumbers = new[]
+                {
+                    new RegisterInformationPhone
+                    {
+                        Ddd = "11",
+                        Number = "991507252",
+                        Type = "mobile"
+                    }
+                }
+            };
+        }
+        
+        protected static RegisterInformation GenerateRegisterInformationTypeCorporation(string documentNumber)
+        {
+            return new RegisterInformation
+            {
+                Type = "corporation",
+                DocumentNumber = documentNumber,
+                CompanyName = Guid.NewGuid().ToString(),
+                TradingName = Guid.NewGuid().ToString(),
+                AnnualRevenue = Guid.NewGuid().ToString(),
+                CorporationType = Guid.NewGuid().ToString(),
+                FoundingDate = Guid.NewGuid().ToString(),
+                Email = GenerateSomeEmail(),
+                SiteUrl = GenerateSomeSiteUrl(),
+                PhoneNumbers = new[]
+                {
+                    new RegisterInformationPhone
+                    {
+                        Ddd = "11",
+                        Number = "995759282",
+                        Type = "mobile"
+                    }
+                },
+                MainAddress = new RegisterInformationAddress
+                {
+                    Street = Guid.NewGuid().ToString(),
+                    Complementary = Guid.NewGuid().ToString(),
+                    StreetNumber = Guid.NewGuid().ToString(),
+                    Neighborhood = Guid.NewGuid().ToString(),
+                    City = Guid.NewGuid().ToString(),
+                    State = Guid.NewGuid().ToString(),
+                    Zipcode = Guid.NewGuid().ToString(),
+                    ReferencePoint = Guid.NewGuid().ToString(),
+                },
+                ManagingPartners = new[]
+                {
+                    GeneratePartnerTypeIndividual(documentNumber)
+                }
+            };
+        }
+        
+        protected static Partner GeneratePartnerTypeIndividual(string documentNumber)
+        {
+            return new Partner {
+                Type = "individual",
+                Name = Guid.NewGuid().ToString(),
+                DocumentNumber = documentNumber,
+                MotherName = Guid.NewGuid().ToString(),
+                Birthdate = "01/01/0001",
+                Email = GenerateSomeEmail(),
+                MonthlyIncome = "1000",
+                ProfessionalOccupation = Guid.NewGuid().ToString(),
+                SelfDeclaredLegalRepresentative = true,
+                Address = new RegisterInformationAddress
+                {
+                    Street = Guid.NewGuid().ToString(),
+                    Complementary = Guid.NewGuid().ToString(),
+                    StreetNumber = Guid.NewGuid().ToString(),
+                    Neighborhood = Guid.NewGuid().ToString(),
+                    City = Guid.NewGuid().ToString(),
+                    State = Guid.NewGuid().ToString(),
+                    Zipcode = Guid.NewGuid().ToString(),
+                    ReferencePoint = Guid.NewGuid().ToString(),
+                },
+                PhoneNumbers = new[]
+                {
+                    new RegisterInformationPhone
+                    {
+                        Ddd = "11",
+                        Number = "991507252",
+                        Type = "mobile"
+                    }
+                }
+            };
+        }
+        
         public static Recipient CreateRecipientWithAnotherBankAccount()
         {
             BankAccount bank = new BankAccount
@@ -119,6 +233,20 @@ namespace PagarMe.Tests
 				LegalName = "Teste " + DateTime.Now.ToShortTimeString()
 			};
 		}
+        
+        public static BankAccount CreateTestBankAccount(string documentNumber)
+        {
+            return new BankAccount()
+            {
+                BankCode = "184",
+                Agencia = "0808",
+                AgenciaDv = "8",
+                Conta = "08808",
+                ContaDv = "8",
+                DocumentNumber = "43591017833",
+                LegalName = "Teste " + DateTime.Now.ToShortTimeString()
+            };
+        }
 
         public static BulkAnticipation CreateBulkAnticipation()
         {

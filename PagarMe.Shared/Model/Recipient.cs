@@ -25,7 +25,6 @@
 // THE SOFTWARE.
 using System;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using PagarMe.Model;
 using PagarMe.Base;
 
@@ -42,6 +41,12 @@ namespace PagarMe
             set { SetAttribute("bank_account", value); }
         }
 
+        public RegisterInformation RegisterInformation
+        {
+            get { return GetAttribute<RegisterInformation>("register_information"); }
+            set { SetAttribute("register_information", value); }
+        }
+        
         public bool TransferEnabled
         {
             get { return GetAttribute<bool>("transfer_enabled"); }
@@ -148,6 +153,13 @@ namespace PagarMe
             var response = request.Execute();
 
             anticipation.LoadFrom(response.Body);
+        }
+
+        public KycLink CreateKycLink()
+        {
+            var request = CreateRequest("POST", "/kyc_link");
+            var response = request.Execute();
+            return JsonConvert.DeserializeObject<KycLink>(response.Body);
         }
 
         public Base.ModelCollection<BulkAnticipation> Anticipations

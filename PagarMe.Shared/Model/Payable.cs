@@ -93,5 +93,11 @@ namespace PagarMe
             get { return GetAttribute<PaymentMethod>("payment_method"); }
             set { SetAttribute("payment_method", value); }
         }
+ 
+        public DateTime? AccrualDate
+        {
+            get { return GetAttribute<DateTime?>("accrual_date"); }
+            set { SetAttribute("accrual_date", value); }
+        }
     }
 }
