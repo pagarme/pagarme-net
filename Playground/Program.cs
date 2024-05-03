@@ -37,8 +37,8 @@ namespace Playground
     {
         public static void Main(string[] args)
         {
-            PagarMeService.DefaultApiKey = "ak_test_RBORKsHflgcrO7gISMyhatMx8UyiJY";
-            PagarMeService.DefaultEncryptionKey = "ek_test_Ajej5CakM8QXGnA2lWX3AarwLWqspL";
+            PagarMeService.DefaultApiKey = "sk_test_b9ec56a341db45c5a38d8aac24717020";
+            PagarMeService.DefaultEncryptionKey = "ek_test_M712AmOsMTWH0NwI3ttKLNpYLwyNzQ";
 
             Transfer[] transfer = PagarMeService.GetDefaultService().Transfers.FindAll(new Transfer()).ToArray();
             Console.Write(transfer.Count());
@@ -60,7 +60,7 @@ namespace Playground
                 b.AgenciaDv = "0";
                 b.Conta = "05392";
                 b.ContaDv = "0";
-                b.BankCode = "0341";
+                b.BankCode = "341";
                 b.DocumentNumber = "05737104141";
                 b.LegalName = "JONATHAN LIMA";
                 b.Save();

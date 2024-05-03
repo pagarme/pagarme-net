@@ -79,6 +79,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Item.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CompanyTemporary.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\PixAditionalField.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\KycLink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\RegisterInformation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Serialization\" />

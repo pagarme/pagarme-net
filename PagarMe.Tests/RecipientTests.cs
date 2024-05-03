@@ -164,5 +164,90 @@ namespace PagarMe.Tests
 			Assert.AreEqual (recipient.AnticipatableVolumePercentage, 88);
 			Assert.AreEqual (recipient.AutomaticAnticipationEnabled, true);
 		}
+		
+		[Test]
+		public void CreateKycLink()
+		{
+			var recipient = CreateRecipient();
+			recipient.Save();
+
+			var link = recipient.CreateKycLink();
+
+			Assert.IsNotNull(link);
+		}
+
+		[Test]
+		public void CreateTypeIndividual()
+		{
+			const string documentNumber = "43591017833";
+
+			var bank = CreateTestBankAccount(documentNumber);
+			bank.Save();
+
+			Assert.IsNotNull(bank.Id);
+
+			var recipient = new Recipient
+			{
+				TransferInterval = TransferInterval.Daily,
+				AnticipatableVolumePercentage = 100,
+				TransferEnabled = true,
+				BankAccount = bank,
+				RegisterInformation = GenerateRegisterInformationTypeIndividual(documentNumber)
+			};
+			recipient.Save();
+
+			Assert.IsNotNull(recipient.Id);
+
+			var expected = PagarMeService.GetDefaultService().Recipients.Find(recipient.Id);
+
+			Assert.IsNotNull(expected);
+			Assert.AreEqual(recipient.Id, expected.Id);
+
+			Assert.IsNotNull(expected.RegisterInformation);
+			Assert.IsNotNull(expected.RegisterInformation.Address);
+			Assert.IsNotNull(recipient.RegisterInformation.PhoneNumbers);
+
+			Assert.AreEqual(recipient.RegisterInformation.Address.Street, expected.RegisterInformation.Address.Street);
+			Assert.AreEqual(recipient.RegisterInformation.PhoneNumbers[0].Number,
+				expected.RegisterInformation.PhoneNumbers[0].Number);
+		}
+
+		[Test]
+		public void CreateTypeCorporation()
+		{
+			const string documentNumber = "43591017833";
+
+			var bank = CreateTestBankAccount(documentNumber);
+			bank.Save();
+
+			Assert.IsNotNull(bank.Id);
+
+			var recipient = new Recipient
+			{
+				TransferInterval = TransferInterval.Daily,
+				AnticipatableVolumePercentage = 100,
+				TransferEnabled = true,
+				BankAccount = bank,
+				RegisterInformation = GenerateRegisterInformationTypeCorporation(documentNumber)
+			};
+			recipient.Save();
+
+			Assert.IsNotNull(recipient.Id);
+
+			var expected = PagarMeService.GetDefaultService().Recipients.Find(recipient.Id);
+
+			Assert.IsNotNull(expected);
+			Assert.AreEqual(recipient.Id, expected.Id);
+
+			Assert.IsNotNull(expected.RegisterInformation);
+			Assert.IsNotNull(expected.RegisterInformation.MainAddress);
+			Assert.IsNotNull(expected.RegisterInformation.ManagingPartners);
+			Assert.IsNotNull(recipient.RegisterInformation.PhoneNumbers);
+
+			Assert.AreEqual(recipient.RegisterInformation.MainAddress.Street, expected.RegisterInformation.MainAddress.Street);
+			Assert.AreEqual(recipient.RegisterInformation.ManagingPartners[0].Name, expected.RegisterInformation.ManagingPartners[0].Name);
+			Assert.AreEqual(recipient.RegisterInformation.PhoneNumbers[0].Number,
+				expected.RegisterInformation.PhoneNumbers[0].Number);
+		}
 	}
 }
