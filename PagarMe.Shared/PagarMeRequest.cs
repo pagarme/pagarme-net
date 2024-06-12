@@ -142,7 +142,7 @@ namespace PagarMe
                 var request = GetRequest();
                 bool isError = false;
 
-                if (Body != null)
+                if (Body != null && (Method == "POST" || Method == "PUT"))
                 {
                     var encoding = new UTF8Encoding(false);
 
@@ -224,8 +224,10 @@ namespace PagarMe
         {
 #if PCL
                 return defaultValue;
+#elif STANDARD
+            return defaultValue;
 #else
-                return defaultValue ?? (string)new AppSettingsReader().GetValue(name, typeof(string));
+            return defaultValue ?? (string)new AppSettingsReader().GetValue(name, typeof(string));
 #endif
         }
 
