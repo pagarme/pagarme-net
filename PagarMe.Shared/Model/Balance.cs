@@ -13,7 +13,7 @@ namespace PagarMe.Model
 
         public Balance(PagarMeService service) : base(service) { }
 
-        public Balance(PagarMeService serivce, string endpointPrefix = "") : base(serivce, endpointPrefix) { }
+        public Balance(PagarMeService service, string endpointPrefix = "") : base(service, endpointPrefix) { }
 
         public int WaitingFunds
         {
