@@ -199,7 +199,7 @@ namespace PagarMe
             request.Headers["User-Agent"] = "pagarme-net/" + typeof(PagarMeRequest).GetTypeInfo().Assembly.GetName().Version.ToString();
             request.Headers["X-PagarMe-User-Agent"] = "pagarme-net/" + typeof(PagarMeRequest).GetTypeInfo().Assembly.GetName().Version.ToString();
 #endif
-
+            request.Headers["Authorization"] = GetBasicAuth();
             request.ContentType = "application/json";
             request.Method = Method;
             return request;
@@ -208,16 +208,13 @@ namespace PagarMe
         private Uri GetRequestUri()
         {
             UriBuilder uriBuilder = new UriBuilder(new Uri(_service.ApiEndpoint + Path));
-            Tuple<string, string> authKey;
-
-            if (UseEncryptionKey)
-                authKey = new Tuple<string, string>("encryption_key", GetKey("pagar.me_encryption_key", _service.EncryptionKey));
-            else
-                authKey = new Tuple<string, string>("api_key", GetKey("pagar.me_api_key", _service.ApiKey));
-
-            uriBuilder.Query = BuildQueryString(Query.Concat(new[] { authKey }));
-
             return uriBuilder.Uri;
+        }
+
+        private string GetBasicAuth()
+        {
+            var key = UseEncryptionKey ? _service.EncryptionKey : _service.ApiKey;
+            return "Basic " + Base64Encode(key + ":");
         }
 
         private string GetKey(String name, String defaultValue)
@@ -231,6 +228,12 @@ namespace PagarMe
 
         private string GetVersionHeader() {
             return _service.PagarMeVersionHeader ?? _service.PagarMeVersionHeader;
+        }
+
+        private string Base64Encode(string plainText) 
+        {
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            return Convert.ToBase64String(plainTextBytes);
         }
     }
 }
